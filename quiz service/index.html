@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Quiz Service</title> 
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <!-- Compiled and Minified JQuery -->
+        <script
+			  src="https://code.jquery.com/jquery-3.2.1.min.js"
+			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			  crossorigin="anonymous">
+        </script>
+
+        <script src="script.js"></script>  
+    </head>
+    <body>
+        <a class="btnRemove">aaa</a>
+        <div class="container-flex">
+            <nav class="nav-extended">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo">Quiz Service</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="#">Entrar</a></li>
+                        <li><a href="#">Criar conta</a></li>
+                    </ul>
+                 </div>
+                <div class="nav-content">
+                  <ul class="tabs tabs-transparent">
+                    <li class="tab"><a class="active" href="#tab1">Dashboard</a></li>
+                    <li class="tab"><a href="#tab2">Teste</a></li>
+                  </ul>
+                </div>
+              </nav>
+
+            <div class="row">
+                <div id="tab1" class="col s6">
+                    <h3>Resultado</h3>
+                    <div id="questions"></div>
+                </div>
+                <div id="tab2" class="col s6">
+                    <h3>Teste</h3>
+                    <div id="test"></div>
+                </div>
+            </div>
+        </div>                                             
+    </body>
+</html>
