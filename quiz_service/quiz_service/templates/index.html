@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Quiz Service</title>
+
+        <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+        <script
+          src = "https://code.jquery.com/jquery-2.1.1.min.js">
+        </script>
+        <script
+          src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+        </script>
+
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    </head>
+    <body>
+      <!-- menu de navegação -->
+      <nav class="nav-extended blue-grey darken-1">
+          <div class="nav-wrapper">
+              <a href="#" class="brand-logo">Quiz Service</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                  <li><a href="#">Entrar</a></li>
+                  <li><a href="#">Criar conta</a></li>
+              </ul>
+          </div>
+      </nav>
+
+
+      <!-- barra lateral de pesquisa -->
+      <div class = "row">
+        <div class = "col s3">
+          <div class = "row">
+          <label>Disciplinas</label>
+            <select>
+              <option value = "" disabled selected>Selecione uma disciplina</option>
+              <option value = "1">Sistemas Operacionais</option>
+              <option value = "2">Estruturas de Dados</option>
+              <option value = "3">Banco de Dados</option>
+            </select>
+          </div>
+
+          <div class = "row">
+          <label>Tópicos</label>
+            <select>
+              <option value = "" disabled selected>Selecione um tópico</option>
+              <option value = "1">Sistema de Estrada e Saída</option>
+              <option value = "2">Sistema de Gerenciamento de Memória</option>
+              <option value = "3">Sistema de Arquivos</option>
+            </select>
+          </div>
+
+          <input type="button" id="btnSearch" value="Pesquisar">
+        </div>
+
+
+      <div class="col s9" id="questions-list"></div>
+
+      </div>
+    </body>
+</html>
