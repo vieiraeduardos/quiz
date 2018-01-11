@@ -1,4 +1,5 @@
-/**/
+/*script.js*/
+/*scripts do sistema*/
 
 $(document).ready(function() {
   /*Habilitando o uso de efeitos do Materialize nos selects*/
@@ -20,7 +21,6 @@ $(document).ready(function() {
 
   }
 
-
   /*Criando uma nova questão*/
   function createQuestion(question) {
     $question = $("<li />")
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 
      return $question
-}
+  }
 
   /*Carregando disciplinas disponíveis no BD*/
   function loadAbstracts() {

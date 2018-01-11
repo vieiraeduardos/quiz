@@ -14,8 +14,12 @@
           src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
         </script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
         <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/exam.js') }}"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
     </head>
     <body>
@@ -81,6 +85,10 @@
         <div class="row">
           <div class="col s9">
             <div class="card">
+              <div class="card-action">
+                <input type="button" class="btn waves-effect waves-light" id="btnGeneratePDF" value="Baixar">
+                <input type="button" class="btn waves-effect waves-light" id="btnShare" value="Compartilhar">
+              </div>
               <div class="card-content">
                 <ol class="card-title" id="questions-list"></ol>
               </div>
