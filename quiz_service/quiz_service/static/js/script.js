@@ -1,3 +1,4 @@
+/**/
 
 $(document).ready(function() {
   /*Habilitando o uso de efeitos do Materialize nos selects*/
@@ -22,25 +23,14 @@ $(document).ready(function() {
 
   /*Criando uma nova questão*/
   function createQuestion(question) {
-    $question = $("<div />")
+    $question = $("<li />")
                 .addClass("row")
-                .append($("<div />")
-                    .addClass("col s12")
+                  .append($("<p />")
+                    .text(question["title"]))
                     .append($("<div />")
-                        .addClass("card blue-grey darken-1")
-                        .append($("<div />")
-                            .addClass("card-content white-text")
-                            .append($("<span />")
-                                .addClass("card-title")
-                                .attr("name", "title")
-                                .text(question["title"])))
-                        .append($("<div />")
-                            .addClass("card-action")
-                            .append($("<a />")
-                                .addClass("btn-floating halfway-fab waves-effect waves-light red")
-                                .append($("<i />")
-                                    .addClass("material-icons")
-                                    .text("add"))))));
+                      .addClass("chip")
+                      .text(convertLevel(question["level"])));
+
 
      return $question
 }
@@ -54,7 +44,7 @@ $(document).ready(function() {
         for(index in data) {
           $("#abstract").append(createAbstract(data[index]));
         }
-        /*Recarregando as configurações do selects*/
+        /*Recarregando as configurações de efeitos do Materialize nos selects*/
         $('select').material_select();
       }
     });
@@ -72,7 +62,7 @@ $(document).ready(function() {
         for(index in data) {
           $("#topic").append(createTopic(data[index]));
         }
-        /*Recarregando as configurações do selects*/
+        /*Recarregando as configurações de efeitos do Materialize nos selects*/
         $('select').material_select();
       }
     });
@@ -86,11 +76,12 @@ $(document).ready(function() {
 
 
   /*Carregando questões consultadas no BD*/
-  function loadQuestions(topic_id) {
+  function loadQuestions(topic_id, number, level) {
     $.ajax({
       url: "http://127.0.0.1:5000/quiz_service/questions/",
       type: "POST",
-      data: {topic_id : topic_id},
+      /*Melhore esta parte*/
+      data: {topic_id : topic_id, number: number, easy: level[0], medium: level[1], hard: level[2]},
       success: function(data) {
         for(index in data) {
           $("#questions-list").append(createQuestion(data[index]));
@@ -101,9 +92,19 @@ $(document).ready(function() {
 
   /*Pesquisando uma lista de questões por tópico*/
   $("#btnSearch").click(function(event) {
+    $("#questions-list").empty();
+
     var topic_id = $("select#topic").val();
-    console.log(topic_id)
-    loadQuestions(topic_id);
+    var number = $("#number").val();
+    var level = []
+
+    $(".level").each(function( index, element ) {
+      level.push($(this).val());
+    });
+
+    console.log(level);
+
+    loadQuestions(topic_id, number, level);
   });
 
 });
