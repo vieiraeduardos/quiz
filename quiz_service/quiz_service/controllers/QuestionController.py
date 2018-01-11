@@ -39,14 +39,18 @@ def get_questions_by_topic():
 
     i = 0
     while(i < 3):
-        result = db.question.find({"topic._id" :ObjectId("5a53f709c790a753148000b0"), "level" : i}).limit(math.floor(level[i] * (number/100)))
+        amount = math.floor(level[i] * (number/100))
+        print(amount)
+        if amount != 0:
+            result = db.question.find({"topic._id" :ObjectId("5a53f709c790a753148000b0"), "level" : i}).limit(amount)
 
-        for item in result:
-            if item["_id"]:
-                item["_id"] = str(item["_id"])
-                item["topic"]["_id"] = str(item["topic"]["_id"])
-                item["topic"]["abstract"]["_id"] = str(item["topic"]["abstract"]["_id"])
-            questions.append(item)
+            for item in result:
+                if item["_id"]:
+                    item["_id"] = str(item["_id"])
+                    item["topic"]["_id"] = str(item["topic"]["_id"])
+                    item["topic"]["abstract"]["_id"] = str(item["topic"]["abstract"]["_id"])
+                questions.append(item)
+
         i = i + 1
 
     return jsonify(questions)
