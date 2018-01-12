@@ -1,18 +1,2 @@
-db.question.insert({
-  "title" : "Quais as duas principais funções do Sistema Operacional?",
-  "level" : 0,
-  "topic" : { "_id" : ObjectId("5a53f6e4c790a753148000af"), "name" : "Introdução", "abstract" : {"_id" : ObjectId("5a53ecb850f925c5016ed6b3"), "name" : "Sistemas Operacionais"}}
-})
 
-db.question.insert({
-  "title" : "O que é Sistema Operacional.",
-  "level" : "1",
-  "topic" : {
-              	"_id" : ObjectId("5a53f6e4c790a753148000af"),
-              	"name" : "Introdução",
-              	"abstract" : {
-              		"_id" : ObjectId("5a53ecb850f925c5016ed6b3"),
-              		"name" : "Sistemas Operacionais"
-                }
-              }
-})
+db.question.insert({"title":"Descreva um arquivo.", "type": "askandanswer", "level":1,"topic":{"_id":ObjectId("5a53f722c790a753148000b1"),"name":"Sistema de Entrada e Saída","abstract":{"_id":ObjectId("5a53ecb850f925c5016ed6b3"),"name":"Sistemas Operacionais"}}})
