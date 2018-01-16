@@ -30,6 +30,7 @@ def get_all_questions():
 def get_questions_by_topic():
     topic_id = request.form.get("topic_id")
     number = int(request.form.get("number"))
+    type = request.form.get("type");
     level = [0, 0, 0]
     level[0] = float(request.form.get("easy")) # Fácil
     level[1] = float(request.form.get("medium")) # Médio
@@ -40,9 +41,8 @@ def get_questions_by_topic():
     i = 0
     while(i < 3):
         amount = math.floor(level[i] * (number/100))
-        print(amount)
         if amount != 0:
-            result = db.question.find({"topic._id" :ObjectId("5a53f709c790a753148000b0"), "level" : i}).limit(amount)
+            result = db.question.find({"topic._id" :ObjectId(topic_id), "level" : i, "type": type}).limit(amount)
 
             for item in result:
                 if item["_id"]:
@@ -53,4 +53,5 @@ def get_questions_by_topic():
 
         i = i + 1
 
+    print(questions)
     return jsonify(questions)

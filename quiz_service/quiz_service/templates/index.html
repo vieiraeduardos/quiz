@@ -27,10 +27,10 @@
       <!-- menu de navegação -->
       <nav class="nav-extended blue-grey darken-1">
           <div class="nav-wrapper">
-              <a href="#" class="brand-logo">Quiz Service</a>
+              <a href="/quiz_service" class="brand-logo">Quiz Service</a>
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                   <li><a href="/quiz_service/login">Entrar</a></li>
-                  <li><a href="#">Criar conta</a></li>
+                  <li><a href="/quiz_service/signup">Criar conta</a></li>
               </ul>
           </div>
       </nav>
@@ -74,6 +74,24 @@
                 <p class="range-field">
                   <input type="range" class="level" min="0" max="100" />
                 </p>
+              </div>
+
+              <div class="row">
+                <label>Tipo</label><br>
+                <div id="type">
+                  <p>
+                    <input name="group1" type="radio" id="test1" value="askandanswer"/>
+                    <label for="test1">Resposta Curta</label>
+                  </p>
+                  <p>
+                    <input name="group1" type="radio" id="test2" value="trueorfalse"/>
+                    <label for="test2">Verdadeiro ou Falso</label>
+                  </p>
+                  <p>
+                    <input name="group1" type="radio" id="test3" value="multiple"/>
+                    <label for="test3">Múltipla Escolha</label>
+                  </p>
+                </div>
               </div>
 
               <div class="row">

@@ -76,12 +76,12 @@ $(document).ready(function() {
 
 
   /*Carregando questões consultadas no BD*/
-  function loadQuestions(topic_id, number, level) {
+  function loadQuestions(topic_id, number, level, type) {
     $.ajax({
       url: "http://127.0.0.1:5000/quiz_service/questions/",
       type: "POST",
       /*Melhore esta parte*/
-      data: {topic_id : topic_id, number: number, easy: level[0], medium: level[1], hard: level[2]},
+      data: {topic_id : topic_id, number: number, easy: level[0], medium: level[1], hard: level[2], type: type},
       success: function(data) {
         for(index in data) {
           $("#questions-list").append(createQuestion(data[index]));
@@ -97,14 +97,18 @@ $(document).ready(function() {
     var topic_id = $("select#topic").val();
     var number = $("#number").val();
     var level = []
+    var type = $("#type :checked").val();
 
     $(".level").each(function( index, element ) {
       level.push($(this).val());
     });
 
-    console.log(level);
+    console.log(topic_id)
+    console.log(number)
+    console.log(level)
+    console.log(type)
 
-    loadQuestions(topic_id, number, level);
+    loadQuestions(topic_id, number, level, type);
   });
 
 });
