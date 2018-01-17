@@ -103,11 +103,6 @@ $(document).ready(function() {
       level.push($(this).val());
     });
 
-    console.log(topic_id)
-    console.log(number)
-    console.log(level)
-    console.log(type)
-
     loadQuestions(topic_id, number, level, type);
   });
 
