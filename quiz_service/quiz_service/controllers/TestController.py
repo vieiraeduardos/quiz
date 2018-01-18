@@ -6,9 +6,22 @@ from bson.objectid import ObjectId
 from quiz_service import app
 from quiz_service import db
 
+#Criando teste
+@app.route("/quiz_service/tests/", methods=["POST"])
+def save_test():
+    name = request.form.get("name")
+    description = request.form.get("description")
+    questions = request.form.getlist("questions[]")
+
+    print(name)
+    print(description)
+    print(questions)
+
+    return render_template("index.html")
+
 
 #Retornando todas as questões por tópico
-@app.route("/quiz_service/test/<course>/<topic>/", methods=["POST", "GET"])
+@app.route("/quiz_service/test/<course>/<topic>/", methods=["POST"])
 def create_test(course, topic):
     number = int(request.form.get("number")) #Número de questões
     type = request.form.get("type"); #Tipo de questão
@@ -17,6 +30,12 @@ def create_test(course, topic):
     level[0] = float(request.form.get("easy")) # Fácil
     level[1] = float(request.form.get("medium")) # Médio
     level[2] = float(request.form.get("hard"))  # Díficil
+
+    print(course)
+    print(topic)
+    print(number)
+    print(type)
+    print(level)
 
     questions = []
 

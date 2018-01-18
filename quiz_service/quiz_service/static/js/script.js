@@ -6,18 +6,18 @@ $(document).ready(function() {
   $('select').material_select();
 
   /*Criando um novo tópico*/
-  function createTopic(abstract) {
-    $topic = $("<option />").text(abstract["name"]).attr("value", abstract["_id"]);
+  function createTopic(topic) {
+    $topic = $("<option />").text(topic["name"]).attr("value", topic["_id"]);
 
     return $topic;
 
   }
 
   /*Criando uma nova disciplina*/
-  function createAbstract(abstract) {
-    $abstract = $("<option />").text(abstract["name"]).attr("value", abstract["_id"]);
+  function createCourse(course) {
+    $course = $("<option />").text(course["name"]).attr("value", course["_id"]);
 
-    return $abstract;
+    return $course;
 
   }
 
@@ -25,6 +25,9 @@ $(document).ready(function() {
   function createQuestion(question) {
     $question = $("<li />")
                 .addClass("row")
+                  .append($("<input />")
+                    .attr("type", "hidden")
+                    .attr("value", question["_id"]))
                   .append($("<p />")
                     .text(question["title"]))
                     .append($("<div />")
@@ -36,13 +39,13 @@ $(document).ready(function() {
   }
 
   /*Carregando disciplinas disponíveis no BD*/
-  function loadAbstracts() {
+  function loadCourses() {
     $.ajax({
-      url: "http://127.0.0.1:5000/quiz_service/abstracts/",
+      url: "http://127.0.0.1:5000/quiz_service/courses/",
       type: "GET",
       success: function(data) {
         for(index in data) {
-          $("#abstract").append(createAbstract(data[index]));
+          $("#course").append(createCourse(data[index]));
         }
         /*Recarregando as configurações de efeitos do Materialize nos selects*/
         $('select').material_select();
@@ -50,14 +53,14 @@ $(document).ready(function() {
     });
   }
 
-  loadAbstracts();
+  loadCourses();
 
   /*Carregando os tópicos no BD*/
-  function loadTopics(abstract_id) {
+  function loadTopics(course) {
     $.ajax({
       url: "http://127.0.0.1:5000/quiz_service/topics/",
       type: "POST",
-      data: {abstract_id: abstract_id},
+      data: {course: course},
       success: function(data) {
         for(index in data) {
           $("#topic").append(createTopic(data[index]));
@@ -69,19 +72,33 @@ $(document).ready(function() {
   }
 
   /*Carregando tópicos quando disciplina selecionada*/
-  $("#abstract").change(function(event) {
-    var abstract_id = $("select#abstract").val();
-    loadTopics(abstract_id);
+  $("#course").change(function(event) {
+    var course = $("select#course").val();
+    loadTopics(course);
+  });
+
+  /*Atualizando níveis*/
+  $(".level").change(function(event) {
+    var $level = [] /*Nível da questão*/
+
+    $(".level").each(function(index, element) {
+      $level.push($(this));
+    });
+
+    $level[0].attr("max", 100 - $level[1].val() - $level[2].val())
+    $level[1].attr("max", 100 - $level[0].val() - $level[2].val())
+    $level[2].attr("max", 100 - $level[0].val() - $level[1].val())
+
   });
 
 
   /*Carregando questões consultadas no BD*/
-  function loadQuestions(topic_id, number, level, type) {
+  function loadQuestions(course, topic, number, level, type) {
     $.ajax({
-      url: "http://127.0.0.1:5000/quiz_service/questions/",
+      url: "http://127.0.0.1:5000/quiz_service/test/" + course + "/" + topic + "/",
       type: "POST",
       /*Melhore esta parte*/
-      data: {topic_id : topic_id, number: number, easy: level[0], medium: level[1], hard: level[2], type: type},
+      data: {number: number, easy: level[0], medium: level[1], hard: level[2], type: type},
       success: function(data) {
         for(index in data) {
           $("#questions-list").append(createQuestion(data[index]));
@@ -94,16 +111,17 @@ $(document).ready(function() {
   $("#btnSearch").click(function(event) {
     $("#questions-list").empty();
 
-    var topic_id = $("select#topic").val();
-    var number = $("#number").val();
-    var level = []
-    var type = $("#type :checked").val();
+    var course = $("select#course").val(); /*ID do curso*/
+    var topic = $("select#topic").val(); /*ID do tópico*/
+    var number = $("#number").val(); /*Número de questões*/
+    var type = $("#type :checked").val(); /*Tipo de questão*/
+    var level = [] /*Nível da questão*/
 
-    $(".level").each(function( index, element ) {
+    $(".level").each(function(index, element) {
       level.push($(this).val());
     });
 
-    loadQuestions(topic_id, number, level, type);
+    loadQuestions(course, topic, number, level, type);
   });
 
 });

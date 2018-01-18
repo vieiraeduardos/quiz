@@ -53,5 +53,4 @@ def get_questions_by_topic():
 
         i = i + 1
 
-    print(questions)
     return jsonify(questions)

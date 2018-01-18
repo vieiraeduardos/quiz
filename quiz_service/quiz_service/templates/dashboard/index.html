@@ -1,0 +1,129 @@
+<!doctype html>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Quiz Service</title>
+
+        <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+        <script
+          src = "https://code.jquery.com/jquery-2.1.1.min.js">
+        </script>
+        <script
+          src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/exam.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    </head>
+    <body>
+
+      <!-- menu de navegação -->
+      <nav class="nav-extended blue-grey darken-1">
+          <div class="nav-wrapper">
+              <a href="/quiz_service" class="brand-logo">Quiz Service</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                  <li><a href="/quiz_service/logout">Sair</a></li>
+              </ul>
+          </div>
+      </nav>
+
+      <!-- barra lateral de pesquisa -->
+      <div class="row">
+        <div class="col s3">
+          <div class="card">
+            <div class="card-content">
+
+              <div class="row">
+                <label>Disciplinas</label>
+                <select id="course">
+                  <option disabled selected>Selecione uma disciplina</option>
+                </select>
+              </div>
+
+              <div class = "row">
+                <label>Tópicos</label>
+                <select id="topic">
+                  <option disabled selected>Selecione um tópico</option>
+                </select>
+              </div>
+
+              <div class = "row">
+                <label>Número de Questões</label>
+                <input type="number" id="number" min=0>
+              </div>
+
+              <div class = "row">
+                <label>Nível</label><br>
+                <label>Fácil</label>
+                <p class="range-field">
+                  <input type="range" class="level" min="0" max="100" step="10" value="0"/>
+                </p>
+                <label>Médio</label>
+                <p class="range-field">
+                  <input type="range" class="level" min="0" max="100" step="10" value="0"/>
+                </p>
+                <label>Díficil</label>
+                <p class="range-field">
+                  <input type="range" class="level" min="0" max="100" step="10" value="0"/>
+                </p>
+              </div>
+
+              <div class="row">
+                <label>Tipo</label><br>
+                <div id="type">
+                  <p>
+                    <input name="group1" type="radio" id="test1" value="askandanswer"/>
+                    <label for="test1">Resposta Curta</label>
+                  </p>
+                  <p>
+                    <input name="group1" type="radio" id="test2" value="trueorfalse"/>
+                    <label for="test2">Verdadeiro ou Falso</label>
+                  </p>
+                  <p>
+                    <input name="group1" type="radio" id="test3" value="multiple"/>
+                    <label for="test3">Múltipla Escolha</label>
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <input type="button" class="btn waves-effect waves-light" id="btnSearch" value="Pesquisar">
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista de Questões-->
+        <div class="row">
+          <div class="col s9">
+            <div class="card">
+                <div class="card-action">
+                  <input type="button" class="btn waves-effect waves-light" id="btnGeneratePDF" value="Baixar">
+                  <input type="button" class="btn waves-effect waves-light" id="btnSave" value="Salvar">
+                </div>
+                <div class="card-content">
+                  <label>Nome</label>
+                  <input type="text" id="name">
+
+                  <label>Descrição</label>
+                  <input type="text" id="description">
+
+                  <ol class="card-title" id="questions-list"></ol>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </body>
+</html>

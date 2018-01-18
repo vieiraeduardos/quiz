@@ -5,8 +5,8 @@ from quiz_service import db
 
 
 #Retornando todas as disciplinas no BD
-@app.route("/quiz_service/abstracts/", methods=["GET"])
-def get_all_abstracts():
+@app.route("/quiz_service/courses/", methods=["GET"])
+def get_all_courses():
     result = db.abstract.find()
 
     abstracts = []

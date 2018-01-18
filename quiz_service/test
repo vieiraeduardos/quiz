@@ -1,2 +1,9 @@
 
 db.question.insert({"title":"A memória RAM é um exemplo de Memória Principal ?", "type": "trueorfalse", "level":0, "topic":{"_id":ObjectId("5a53f722c790a753148000b1"),"name":"Sistema de Entrada e Saída","abstract":{"_id":ObjectId("5a53ecb850f925c5016ed6b3"),"name":"Sistemas Operacionais"}}})
+
+
+"test": {
+  "name": "",
+  "description": "",
+  "questions": []
+}

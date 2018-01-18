@@ -21,10 +21,10 @@ def get_all_topics():
 
 #Retornando todos os tópicos por disciplinas
 @app.route("/quiz_service/topics/", methods=["POST", "GET"])
-def get_topics_by_abstract():
-    abstract_id = request.form.get("abstract_id")
+def get_topics_by_course():
+    course = request.form.get("course")
 
-    result = db.topic.find({"abstract._id" : ObjectId(abstract_id)})
+    result = db.topic.find({"abstract._id" : ObjectId(course)})
 
     topics = []
     for item in result:
