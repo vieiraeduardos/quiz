@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Quiz Service</title>
+
+        <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+        <script
+          src = "https://code.jquery.com/jquery-2.1.1.min.js">
+        </script>
+        <script
+          src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+        </script>
+    </head>
+    <body>
+
+      <!-- menu de navegação -->
+      <nav class="nav-extended blue-grey darken-1">
+          <div class="nav-wrapper">
+              <a href="/quiz_service" class="brand-logo">Quiz Service</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                  <li><a href="/quiz_service/logout">Logout</a></li>
+              </ul>
+          </div>
+      </nav>
+
+      <div class="container">
+        <!-- informações sobre o questionário -->
+        <div class="card">
+            <div class="card-content">
+                <label>Nome</label>
+                <h4>Teste de SO</h4>
+                <label>Descrição</label>
+                <h5>Um simples teste de SO sobre SES e SA</h5>        
+            </div>
+            <div class="card-action">
+                <input type="button" class="btn" value="Editar">
+            </div>
+        </div>
+
+        <!-- respostas dos usuários do teste -->
+        <div class="card">
+            <div class="card-content">
+                <label>Usuário</label>
+                <h5>Eduardo</h5>
+
+                <label>Nota</label>
+                <h5>10</h5>
+            </div>
+            <div class="card-action">
+                <input type="button" class="btn" value="Verificar">
+            </div>
+        </div>
+        
+      </div>
+    </body>
+</html>
