@@ -21,18 +21,29 @@
         <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
         <script src="{{ url_for('static', filename='js/exam.js') }}"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+
+    <script>
+        $(document).ready(function(){
+          // Initialize collapse button
+          $(".button-collapse").sideNav();
+          // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+          $('.collapsible').collapsible();
+        });
+     </script>
     </head>
     <body>
 
       <!-- menu de navegação -->
       <nav class="nav-extended blue-grey darken-1">
           <div class="nav-wrapper">
-              <a href="/quiz_service" class="brand-logo">Quiz Service</a>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-                  <li><a href="/quiz_service/logout">Sair</a></li>
+              <a href="/quiz_service" class="brand-logo center">Quiz Service</a>
+              <ul id="slide-out" class="side-nav">
+                <li><a href="#">Entrar</a></li>
+                <li><a href="#">Registrar-se</a></li>
               </ul>
+              <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
           </div>
-      </nav>
+        </nav>
 
       <!-- Tabela de quizzes criados -->
       <div class="container">
@@ -77,13 +88,10 @@
          </table>
 
 
-        <div class="fixed-action-btn horizontal click-to-toggle">
-          <a class="btn-floating btn-large red">
-            <i class="material-icons">menu</i>
-          </a>
-          <ul>
-            <li><a href="/quiz_service/dashboard/" class="btn-floating red"><i class="material-icons">add</i></a></li>
-          </ul>
+        <div class="fixed-action-btn">
+            <a class="btn-floating waves-effect waves-light btn-large">
+                <i class="large material-icons">add</i>
+            </a>            
         </div>
       </div>
     </body>

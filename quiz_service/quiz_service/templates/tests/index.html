@@ -13,6 +13,16 @@
         <script
           src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
         </script>
+
+
+        <script>
+            $(document).ready(function(){
+              // Initialize collapse button
+              $(".button-collapse").sideNav();
+              // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+              $('.collapsible').collapsible();
+            });
+        </script>
     </head>
     <body>
 
@@ -36,21 +46,28 @@
                 <h5>Um simples teste de SO sobre SES e SA</h5>        
             </div>
             <div class="card-action">
-                <input type="button" class="btn" value="Editar">
+                <a class="waves-effect waves-light btn">Editar<i class="material-icons right">edit</i></a>
             </div>
         </div>
+
+        <h4>Respostas</h4>
 
         <!-- respostas dos usuários do teste -->
         <div class="card">
             <div class="card-content">
-                <label>Usuário</label>
-                <h5>Eduardo</h5>
-
-                <label>Nota</label>
-                <h5>10</h5>
+                <div class="row">
+                    <div class="col s12 m6 l6">
+                        <label>Usuário</label>
+                        <h5>Eduardo</h5>          
+                    </div>
+                    <div class="col s12 m6 l6">
+                        <label>Nota</label>
+                        <h5>10</h5>
+                    </div>
+                </div>
             </div>
             <div class="card-action">
-                <input type="button" class="btn" value="Verificar">
+                <a class="waves-effect waves-light btn">Ver</i></a>
             </div>
         </div>
         

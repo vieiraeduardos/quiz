@@ -5,6 +5,11 @@ $(document).ready(function() {
   /*Habilitando o uso de efeitos do Materialize nos selects*/
   $('select').material_select();
 
+// Initialize collapse button
+$(".button-collapse").sideNav();
+// Initialize collapsible (uncomment the line below if you use the dropdown variation)
+$('.collapsible').collapsible();
+
   /*Criando um novo tópico*/
   function createTopic(topic) {
     $topic = $("<option />").text(topic["name"]).attr("value", topic["_id"]);
