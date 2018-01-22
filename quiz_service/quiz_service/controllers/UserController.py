@@ -1,9 +1,8 @@
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, redirect, session
 from bson.objectid import ObjectId
 
 from quiz_service import app
 from quiz_service import db
-
 
 #Retornando todas os usuários no BD
 @app.route("/quiz_service/users/", methods=["GET"])
@@ -34,9 +33,11 @@ def login():
     user = db.user.find_one({"email": email, "password": password})
 
     if user:
+        session["email"] = user["email"]
         return redirect("/quiz_service/")
     else:
-        return render_template("login/index.html")
+        error = "E-mail ou senha estão incorretos!"
+        return render_template("login/index.html", error=error)
 
 
 #Redirecionando usuário para a página de signup
@@ -55,3 +56,9 @@ def signup():
     db.user.insert_one({"name": name, "email": email, "password": password})
 
     return redirect("/quiz_service/")
+
+#Logout do sistema
+@app.route("/quiz_service/logout/", methods=["GET"])
+def logout():
+    session.pop("email", None)
+    return redirect("/quiz_service/login/")

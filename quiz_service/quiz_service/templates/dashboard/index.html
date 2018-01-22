@@ -28,17 +28,18 @@
 
       <!-- menu de navegação -->
       <nav class="nav-extended blue-grey darken-1">
-          <div class="nav-wrapper">
-              <a href="/quiz_service" class="brand-logo">Quiz Service</a>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-                  <li><a href="/quiz_service/logout">Sair</a></li>
-              </ul>
-          </div>
+        <div class="nav-wrapper">
+          <a href="/quiz_service" class="brand-logo center">Quiz Service</a>
+          <ul id="slide-out" class="side-nav">
+            <li><a href="/quiz_service/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
+          </ul>
+          <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        </div>
       </nav>
 
       <!-- barra lateral de pesquisa -->
       <div class="row">
-        <div class="col s3">
+        <div class="col s12 m6 l3">
           <div class="card">
             <div class="card-content">
 
@@ -105,11 +106,11 @@
 
         <!-- Lista de Questões-->
         <div class="row">
-          <div class="col s9">
+          <div class="col s12 m6 l9">
             <div class="card">
                 <div class="card-action">
-                  <input type="button" class="btn waves-effect waves-light" id="btnGeneratePDF" value="Baixar">
-                  <input type="button" class="btn waves-effect waves-light" id="btnSave" value="Salvar">
+                  <a href="#" class="btn waves-effect waves-light" id="btnGeneratePDF">Baixar<i class="material-icons right">get_app</i></a>
+                  <a href="#" class="btn waves-effect waves-light" id="btnSave">Salvar<i class="material-icons right">save</i></a>
                 </div>
                 <div class="card-content">
                   <label>Nome</label>

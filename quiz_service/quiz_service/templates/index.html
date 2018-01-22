@@ -7,91 +7,107 @@
 
         <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-        <script
-          src = "https://code.jquery.com/jquery-2.1.1.min.js">
-        </script>
-        <script
-          src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
-        </script>
+        <script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
-        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/exam.js') }}"></script>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
-
-    <script>
-        $(document).ready(function(){
-          // Initialize collapse button
-          $(".button-collapse").sideNav();
-          // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-          $('.collapsible').collapsible();
-        });
-     </script>
     </head>
     <body>
 
       <!-- menu de navegação -->
       <nav class="nav-extended blue-grey darken-1">
-          <div class="nav-wrapper">
-              <a href="/quiz_service" class="brand-logo center">Quiz Service</a>
-              <ul id="slide-out" class="side-nav">
-                <li><a href="#">Entrar</a></li>
-                <li><a href="#">Registrar-se</a></li>
-              </ul>
-              <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-          </div>
-        </nav>
+        <div class="nav-wrapper">
+          <a href="/quiz_service" class="brand-logo center">Quiz Service</a>
+          <ul id="slide-out" class="side-nav">
+            <li><a href="/quiz_service/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
+          </ul>
+          <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
 
       <!-- Tabela de quizzes criados -->
       <div class="container">
-          <h3>Meus Testes Criados</h3>
-          <table class="highlight">
-           <thead>
-             <tr>
-               <th>Nome</th>
-               <th>Descrição</th>
-               <th>Opção</th>
-             </tr>
-           </thead>
+        <div class="card">
+          <div class="card-action">
+            <a id="call" class="waves-effect waves-light btn modal-trigger" href="#modal1">Compartilhar
+              <i class="material-icons right">share</i>
+            </a>
+          </div>
+          <div class="card-content">
+            <h4>Meus Testes Criados</h4>
+            <table class="highlight">
+             <thead>
+               <tr>
+                 <th>Nome</th>
+                 <th>Descrição</th>
+               </tr>
+             </thead>
 
-           <tbody id="created-tests">
-             <tr>
-               <td>Alvin</td>
-               <td>Eclair</td>
-               <td><a href="#">Compartilhar</a></td>
-             </tr>
-           </tbody>
-         </table>
+             <tbody id="created_tests">
+               {% if created_tests %}
+                  {% for test in created_tests %}
+                    <tr>
+                      <input type="hidden" value="{{ test._id }}">
+                      <td><a href="/quiz_service/tests/{{ test._id }}/answers">{{ test.name }}</a></td>
+                      <td>{{ test.description }}</td>
+                    </tr>
+                  {% endfor %}
+               {% endif %}
+             </tbody>
+           </table>
+          </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <h4>Compartilhar Quiz</h4>
+            <select id="test"></select>
+            <p>Para compartilhar, escreva o e-mail no campo abaixo.</p>
+            <input type="text" id="email">
+          </div>
+          <div class="modal-footer">
+            <a id="btnShare" class="modal-action modal-close waves-effect waves-green btn-flat">Compartilhar</a>
+          </div>
+        </div>
 
          <!-- meus testes para responder -->
+         <div class="card">
+           <div class="card-action">
 
-         <h3>Meus Testes para responder</h3>
-          <table class="highlight">
-           <thead>
-             <tr>
-               <th>Nome</th>
-               <th>Descrição</th>
-               <th>Opção</th>
-             </tr>
-           </thead>
+           </div>
+           <div class="card-content">
+             <h4>Meus Testes Compartilhados</h4>
+             <table class="highlight">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Descrição</th>
+                </tr>
+              </thead>
 
-           <tbody id="my-tests">
-             <tr>
-               <td>Alvin</td>
-               <td>Eclair</td>
-               <td><a href="#">Responder</a></td>
-             </tr>
-           </tbody>
-         </table>
+              <tbody id="tests">
+                {% if tests %}
+                   {% for test in tests %}
+                     <tr>
+                       <input type="hidden" value="{{ test._id }}">
+                       <td>{{ test.name }}</td>
+                       <td>{{ test.description }}</td>
+                       <td><a href="/quiz_service/tests/{{ test._id }}" class="btn waves-effect waves-light">Responder</a></td>
+                     </tr>
+                   {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+           </div>
+         </div>
 
 
         <div class="fixed-action-btn">
-            <a class="btn-floating waves-effect waves-light btn-large">
+            <a href="/quiz_service/dashboard/" class="btn-floating waves-effect waves-light btn-large">
                 <i class="large material-icons">add</i>
-            </a>            
+            </a>
         </div>
       </div>
     </body>

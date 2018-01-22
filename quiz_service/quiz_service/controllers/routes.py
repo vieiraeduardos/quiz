@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 
 from quiz_service import app
 from quiz_service import db
@@ -6,8 +6,13 @@ from quiz_service import db
 #Redirecionando para o índice da aplicação
 @app.route("/quiz_service/")
 def index():
-    return render_template("index.html")
+    if "email" in session:
+        created_tests = db.test.find({"creator.email": session["email"]})
+        tests = db.test.find({"people": session["email"]})
 
+        return render_template("index.html", created_tests=created_tests, tests=tests)
+
+    return redirect("/quiz_service/login/")
 
 @app.route("/quiz_service/dashboard/", methods=["GET"])
 def dashboard():

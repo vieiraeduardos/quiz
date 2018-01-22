@@ -3,6 +3,8 @@ from pymongo import MongoClient
 
 app = Flask(__name__);
 
+app.config["SECRET_KEY"] = "secret key"
+
 client = MongoClient('mongodb://localhost:27017/')
 db = client.quizservicedb
 
