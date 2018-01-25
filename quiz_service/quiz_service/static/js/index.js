@@ -44,7 +44,7 @@ $(document).ready(function(){
       $("#test").append($option);
 
       /*Recarregando as configurações de efeitos do Materialize nos selects*/
-      $('select').material_select();
+      $("select").material_select();
 
     });
   }

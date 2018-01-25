@@ -164,6 +164,7 @@ $(document).ready(function(){
         data: {"name": name, "description": description, "questions": questions},
         success: function(data) {
           console.log("New test saved in " + Date());
+          window.location.replace("http://127.0.0.1:5000/quiz_service/");
         }
       });
   }

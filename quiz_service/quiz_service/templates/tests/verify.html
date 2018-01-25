@@ -29,6 +29,7 @@
         <!-- informações sobre o questionário -->
         <div class="card">
             <div class="card-content">
+              <input type="hidden" id="test-id" value="{{ test._id }}">
                 <label>Nome</label>
                 <h5 id="name">{{ test.name }}</h5>
                 <label>Descrição</label>
@@ -41,22 +42,18 @@
             </div>
         </div>
 
-        <!-- modal de edição -->
+        <!-- Modal Structure -->
         <div id="modal1" class="modal">
           <div class="modal-content">
-            <div>
-            </div>
-            <label>Nome</label>
-            <input type="type" id="modal-test-name">
-            <label>Descrição</label>
-            <input type="type" id="modal-test-description">
+            <h4>Editar Quiz</h4>
+            <input type="text" id="modal-test-name" placeholder="Nome do Quiz">
+            <input type="text" id="modal-test-description" placeholder="Descrição do Quiz">
           </div>
           <div class="modal-footer">
-            <a id="btnShare" class="modal-action modal-close waves-effect waves-green btn-flat">Compartilhar</a>
+            <a id="btnEditAndSave" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
           </div>
         </div>
-
-        <h5>Respostas</h5>
 
         <!-- respostas dos usuários do teste -->
         <div class="card">
@@ -75,7 +72,7 @@
                 </div>
               </div>
               <div class="card-action">
-                  <a class="waves-effect waves-light btn">Ver</i></a>
+                  <a href="/quiz_service/answers/{{ answer._id}}" class="waves-effect waves-light btn">Ver</i></a>
               </div>
             {% endfor %}
           {% endif %}

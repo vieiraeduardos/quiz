@@ -23,4 +23,20 @@ $(document).ready(function(){
 
   });
 
+  /*adicionando evento ao botão para salvar a edição*/
+  $("#btnEditAndSave").click(function(event) {
+    var test = $("#test-id").val();
+    var name = $("#modal-test-name").val(); /*novo nome*/
+    var description = $("#modal-test-description").val(); /*nova descrição*/
+
+    $.ajax({
+      url: "http://127.0.0.1:5000/quiz_service/tests/" + test + "/",
+      type: "PUT",
+      data: {name: name, description: description},
+      success: function(data) {
+        console.log("New test saved in " + Date());
+      }
+    });
+  });
+
 });

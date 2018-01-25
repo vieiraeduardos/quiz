@@ -7,12 +7,11 @@
 
         <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
-
         <script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
-        <script src="{{ url_for('static', filename='js/answer.js') }}"></script>
-   </head>
+        <script src="{{ url_for('static', filename='js/see.js') }}"></script>
+    </head>
     <body>
 
       <!-- menu de navegação -->
@@ -30,11 +29,12 @@
         <!-- informações sobre o questionário -->
         <div class="card">
             <div class="card-content">
-              <input type="hidden" id="test-id" value="{{ test._id }}">
+              <input type="hidden" id="answer-id" value="{{ answer._id }}">
+              <input type="hidden" id="test-id" value="{{ answer.test._id }}">
                 <label>Nome</label>
-                <h5>{{ test.name }}</h5>
+                <h5>{{ answer.test.name }}</h5>
                 <label>Descrição</label>
-                <h5>{{ test.description }}</h5>
+                <h5>{{ answer.test.description }}</h5>
             </div>
         </div>
 
@@ -42,19 +42,23 @@
         <div class="card">
             <div class="card-content">
                 <ol id="test">
-                  {% if test.questions %}
-                    {% for question in test.questions %}
+                  {% if answer.test.questions %}
+                    {% for question in answer.test.questions %}
                       <li>{{ question.title }}</li>
-                      <textarea class="answer materialize-textarea"></textarea>
+                      <textarea class="answer materialize-textarea">{{ question.answer }}</textarea>
                     {% endfor %}
                   {% endif %}
                 </ol>
             </div>
             <div class="card-action">
-                <a id="btnAnswer" class="btn waves-effect waves-light">Enviar</a>
-                <a href="/quiz_service/" class="btn waves-effect waves-light">Cancelar</a>
+                <div class="row">
+                  <label>Nota</label>
+                  <input id="grade" type="number" min="0" max="10">
+                  <a id="btnUpdateGrade" class="btn waves-effect waves-light">Atualizar Nota</a>
+                </div>
             </div>
         </div>
+
       </div>
     </body>
 </html>

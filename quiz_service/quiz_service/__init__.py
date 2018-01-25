@@ -14,3 +14,4 @@ from quiz_service.controllers import QuestionController
 from quiz_service.controllers import TopicController
 from quiz_service.controllers import UserController
 from quiz_service.controllers import TestController
+from quiz_service.controllers import AnswerController

@@ -6,6 +6,40 @@ from bson.objectid import ObjectId
 from quiz_service import app
 from quiz_service import db
 
+#respondendo o quiz
+@app.route("/quiz_service/tests/<test_id>/answers/", methods=["POST"])
+def send_answer(test_id):
+    answers = request.form.getlist("answers[]")
+    test = db.test.find_one({"_id": ObjectId(test_id)})
+    user = db.user.find_one({"email": session["email"]})
+
+    script = {"user": user, "test": test, grade: 0}
+
+    i = 0;
+    for answer in answers:
+        script["test"]["questions"][i]["answer"] = answer
+        i = i + 1
+
+    db.answers.insert(script)
+
+    return redirect("/quiz_service/")
+
+#atualizando as informações do teste
+@app.route("/quiz_service/tests/<test_id>/", methods=["PUT"])
+def update_test(test_id):
+    name = request.form.get("name")
+    description = request.form.get("description")
+
+    test = db.test.find_one({"_id": ObjectId(test_id)})
+
+    test["name"] = name
+    test["description"] = description
+
+    db.test.update({"_id": ObjectId(test_id)}, test)
+
+    return "OK"
+
+
 #Compartilhando teste
 @app.route("/quiz_service/tests/<test_id>/people/", methods=["PUT"])
 def share_test(test_id):
@@ -119,4 +153,6 @@ def test(test_id):
 
     test["questions"] = questions
 
-    return render_template("tests/verify.html", test=test, answers=None)
+    answers = db.answers.find({"test._id": ObjectId(test_id)})
+
+    return render_template("tests/verify.html", test=test, answers=answers)
