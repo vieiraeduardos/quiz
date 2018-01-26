@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, jsonify
 from bson.objectid import ObjectId
 
 from quiz_service import app
@@ -32,4 +32,4 @@ def update_grade(answer_id):
         answer
     )
 
-    return redirect("/quiz_service/")
+    return "Ok"

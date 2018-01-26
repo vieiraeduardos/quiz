@@ -15,7 +15,11 @@ $(document).ready(function(){
     $.ajax({
       url: "http://127.0.0.1:5000/quiz_service/tests/" + test + "/answers/",
       type: "POST",
-      data: {answers: answers}
+      data: {answers: answers},
+      success: function(data) {
+        console.log("Test " + test + "answered in " + Date());
+        window.location.replace("http://127.0.0.1:5000/quiz_service/");
+      }
     });
   }
 
@@ -23,11 +27,22 @@ $(document).ready(function(){
   $("#btnAnswer").click(function(event) {
     var test = $("#test-id").val(); /*ID do quiz*/
     var answers = []; /*lista de repostas do quiz*/
+    var type = $("#test-type").val();
 
-    /*pegando todas as repostas do quiz*/
-    $(".answer").each(function(index, element) {
-      answers.push($(this).val());
-    });
+    if(type == "shortAnswer") {
+      /*pegando todas as repostas do quiz*/
+      $(".answer").each(function(index, element) {
+        answers.push($(this).val());
+
+      });
+    } else if(type == "trueOrFalse") {
+      /*pegando todas as repostas do quiz*/
+      $(".answer").each(function(index, element) {
+        answers.push($(this).prop("checked"));
+      });
+    } else {
+      /*multiple choice*/
+    }
 
     sendAnswer(test, answers);
   });

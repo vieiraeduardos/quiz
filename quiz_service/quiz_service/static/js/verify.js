@@ -46,8 +46,10 @@ $(document).ready(function(){
       url: "http://127.0.0.1:5000/quiz_service/tests/" + test + "/people/",
       type: "PUT",
       data: {"test": test, "email": email},
-      sucess: function(data) {
-        console.log("Test " + test + "shared in " + Date())
+      success: function(data) {
+        console.log("Test " + test + "shared in " + Date());
+        window.location.replace("http://127.0.0.1:5000/quiz_service/");
+
       }
     });
   }

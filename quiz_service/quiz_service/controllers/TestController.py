@@ -21,7 +21,7 @@ def send_answer(test_id):
                 "email" : session["email"]
            })
 
-    script = {"user": user, "test": test, grade: 0}
+    script = {"user": user, "test": test, "grade": 0}
 
     i = 0;
     for answer in answers:
@@ -30,7 +30,7 @@ def send_answer(test_id):
 
     db.answers.insert(script)
 
-    return redirect("/quiz_service/")
+    return "OK"
 
 #atualizando as informações do teste
 @app.route("/quiz_service/tests/<test_id>/", methods=["PUT"])
@@ -78,7 +78,7 @@ def share_test(test_id):
         test
     )
 
-    return redirect("/quiz_service/")
+    return "OK"
 
 #Criando teste
 @app.route("/quiz_service/tests/", methods=["POST"])
@@ -102,7 +102,7 @@ def save_test():
 
     db.tests.insert_one(test)
 
-    return jsonify(test)
+    return "OK"
 
 
 #Retornando todas as questões por tópico
@@ -141,7 +141,7 @@ def create_test(course, topic):
 
 
 #Retornando um teste pelo ID
-@app.route("/quiz_service/tests/<test_id>")
+@app.route("/quiz_service/tests/<test_id>/", methods=["GET"])
 def get_test_by_id(test_id):
     test = db.tests.find_one(
            {

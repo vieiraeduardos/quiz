@@ -31,6 +31,7 @@
         <div class="card">
             <div class="card-content">
               <input type="hidden" id="test-id" value="{{ test._id }}">
+              <input type="hidden" id="test-type" value="{{ test.questions[0].type }}">
                 <label>Nome</label>
                 <h5>{{ test.name }}</h5>
                 <label>Descrição</label>
@@ -45,7 +46,19 @@
                   {% if test.questions %}
                     {% for question in test.questions %}
                       <li>{{ question.title }}</li>
-                      <textarea class="answer materialize-textarea"></textarea>
+                      {% if question.type == "shortAnswer" %}
+                        <textarea class="answer materialize-textarea"></textarea>
+                      {% elif question.type == "trueOrFalse" %}
+                      <!-- Switch -->
+                        <div class="switch">
+                          <label>
+                          Falso
+                          <input class="answer" type="checkbox">
+                          <span class="lever"></span>
+                          Verdadeiro
+                          </label>
+                        </div>
+                      {% endif %}
                     {% endfor %}
                   {% endif %}
                 </ol>
