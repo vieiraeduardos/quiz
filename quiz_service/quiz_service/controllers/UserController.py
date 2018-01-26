@@ -1,5 +1,6 @@
 from flask import jsonify, request, render_template, redirect, session
 from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from quiz_service import app
 from quiz_service import db
@@ -7,7 +8,7 @@ from quiz_service import db
 #Retornando todas os usuários no BD
 @app.route("/quiz_service/users/", methods=["GET"])
 def get_all_users():
-    result = db.user.find()
+    result = db.users.find()
 
     users = []
     for item in result:
@@ -18,7 +19,7 @@ def get_all_users():
     return jsonify(users)
 
 
-#Redirecioando usuário para a página de login
+#Redirecionando usuário para a página de login
 @app.route("/quiz_service/login/", methods=["GET"])
 def redirect_login():
     return render_template("login/index.html")
@@ -30,14 +31,17 @@ def login():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    user = db.user.find_one({"email": email, "password": password})
-
+    user = db.users.find_one(
+            {
+                "email": email
+            })
     if user:
-        session["email"] = user["email"]
-        return redirect("/quiz_service/")
-    else:
-        error = "E-mail ou senha estão incorretos!"
-        return render_template("login/index.html", error=error)
+        if check_password_hash(user["password"], password):
+            session["email"] = user["email"]
+            return redirect("/quiz_service/")
+
+    error = "E-mail ou senha estão incorretos!"
+    return render_template("login/index.html", error=error)
 
 
 #Redirecionando usuário para a página de signup
@@ -51,9 +55,14 @@ def redirect_signup():
 def signup():
     name = request.form.get("name")
     email = request.form.get("email")
-    password = request.form.get("password")
+    password = generate_password_hash(request.form.get("password"))
 
-    db.user.insert_one({"name": name, "email": email, "password": password})
+    db.users.insert_one(
+    {
+        "name": name,
+        "email": email,
+        "password": password
+    })
 
     return redirect("/quiz_service/")
 

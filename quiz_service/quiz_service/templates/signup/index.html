@@ -3,43 +3,57 @@
 <html lang="pt-br">
   <head>
     <meta charset="utf-8">
-    <title>Login</title>
+    <title>Quiz | Cadastro</title>
 
     <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
     <script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    <script src="{{ url_for('static', filename='js/signup.js')}}"></script>
   </head>
   <body>
-    <div class="row">
-      <div class="col s12">
-        <div class="row">
-          <h3>Cadastrar-se</h3>
-        </div>
-        <form action="/quiz_service/signup/" method="POST">
-          <div class="row">
-            <label>Nome</label>
-            <input type="text" name="name">
-          </div>
-
-          <div class="row">
-            <label>Email</label>
-            <input type="email" name="email">
-          </div>
-
-          <div class="row">
-            <label>Senha</label>
-            <input type="password" name="password">
-          </div>
-
-          <div class="row">
-            <input type="submit" class="btn waves-effect waves-light" value="Cadastrar-se">
-            <a href="#">Cancelar</a>
-          </div>
-        </form>
+    <!-- menu de navegação -->
+    <nav class="nav-extended blue-grey darken-1">
+      <div class="nav-wrapper">
+        <a href="/quiz_service" class="brand-logo center">Quiz</a>
+        <ul id="slide-out" class="side-nav">
+          <li><a href="/quiz_service/login/">Entrar<i class="material-icons right">input</i></a></li>
+          <li><a href="/quiz_service/signup/">Registrar-se<i class="material-icons right">assignment</i></a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
       </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <h5>Cadastro</h5>
+      </div>
+      <form action="/quiz_service/signup/" method="POST">
+        <div class="row">
+          <label>Nome</label>
+          <input type="text" name="name">
+        </div>
+
+        <div class="row">
+          <label>Email</label>
+          <input type="email" name="email">
+        </div>
+
+        <div class="row">
+          <label>Senha</label>
+          <input type="password" name="password">
+        </div>
+
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <button type="submit" class="btn col s12 waves-effect waves-light">Cadastrar-se</button>
+          </div>
+          <div class="col s12 m6 l6">
+            <a href="/quiz_service/signup/" class="btn col s12 waves-effect waves-light">Cancelar</a>
+          </div>
+        </div>
+      </form>
     </div>
   </body>
 </html>

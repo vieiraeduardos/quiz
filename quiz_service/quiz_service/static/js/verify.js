@@ -34,9 +34,30 @@ $(document).ready(function(){
       type: "PUT",
       data: {name: name, description: description},
       success: function(data) {
-        console.log("New test saved in " + Date());
+        console.log("Test " + test + " updated in " + Date());
+        window.location.replace("http://127.0.0.1:5000/quiz_service/tests/" + test + "/answers/");
       }
     });
+  });
+
+  /*Compartilhando teste*/
+  function shareTest(test, email) {
+    $.ajax({
+      url: "http://127.0.0.1:5000/quiz_service/tests/" + test + "/people/",
+      type: "PUT",
+      data: {"test": test, "email": email},
+      sucess: function(data) {
+        console.log("Test " + test + "shared in " + Date())
+      }
+    });
+  }
+
+  /*Adicionando evento ao botão de compartilhar*/
+  $("#btnShare").click(function(event) {
+    var test = $("#test-id").val()
+    var email = $("#email").val();
+
+    shareTest(test, email);
   });
 
 });

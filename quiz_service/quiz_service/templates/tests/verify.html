@@ -39,10 +39,13 @@
               <a id="call" class="waves-effect waves-light btn modal-trigger" href="#modal1">Editar
                 <i class="material-icons right">edit</i>
               </a>
+              <a id="call-modal-share" class="waves-effect waves-light btn modal-trigger" href="#modal2">Compartilhar
+                <i class="material-icons right">share</i>
+              </a>
             </div>
         </div>
 
-        <!-- Modal Structure -->
+        <!-- modal de edição -->
         <div id="modal1" class="modal">
           <div class="modal-content">
             <h4>Editar Quiz</h4>
@@ -52,6 +55,18 @@
           <div class="modal-footer">
             <a id="btnEditAndSave" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
             <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+          </div>
+        </div>
+
+        <!-- modal de compartilhamento -->
+        <div id="modal2" class="modal">
+          <div class="modal-content">
+            <h4>Compartilhar Quiz</h4>
+            <p>Para compartilhar, escreva o e-mail no campo abaixo.</p>
+            <input type="text" id="email">
+          </div>
+          <div class="modal-footer">
+            <a id="btnShare" class="modal-action modal-close waves-effect waves-green btn-flat">Compartilhar</a>
           </div>
         </div>
 

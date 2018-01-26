@@ -3,7 +3,7 @@
 <html lang="pt-br">
   <head>
     <meta charset="utf-8">
-    <title>Login</title>
+    <title>Quiz | Entrar</title>
 
     <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
@@ -18,7 +18,7 @@
     <!-- menu de navegação -->
     <nav class="nav-extended blue-grey darken-1">
       <div class="nav-wrapper">
-        <a href="/quiz_service" class="brand-logo center">Quiz Service</a>
+        <a href="/quiz_service" class="brand-logo center">Quiz</a>
         <ul id="slide-out" class="side-nav">
           <li><a href="/quiz_service/login/">Entrar<i class="material-icons right">input</i></a></li>
           <li><a href="/quiz_service/signup/">Registrar-se<i class="material-icons right">assignment</i></a></li>
@@ -27,36 +27,36 @@
       </div>
     </nav>
 
-      <div class="container">
+    <div class="container">
+      <div class="row">
+        <h5>Entrar</h5>
+      </div>
+      <form action="/quiz_service/login/" method="POST">
+        {% if error %}
+          <div class="row">
+            <span class="error">{{ error }}<span>
+          </div>
+        {% endif %}
+
         <div class="row">
-          <div class="col s12">
-            <div class="row">
-              <h5>Entrar</h5>
-            </div>
-            <form action="/quiz_service/login/" method="POST">
-              {% if error %}
-                <div class="row">
-                  <span>{{ error }}<span>
-                </div>
-              {% endif %}
+          <label>Email</label>
+          <input type="email" name="email">
+        </div>
 
-              <div class="row">
-                <label>Email</label>
-                <input type="email" name="email">
-              </div>
+        <div class="row">
+          <label>Senha</label>
+          <input type="password" name="password">
+        </div>
 
-              <div class="row">
-                <label>Senha</label>
-                <input type="password" name="password">
-              </div>
-
-              <div class="row">
-                <button type="submit" class="btn waves-effect waves-light">Entrar</button>
-                <a href="#" class="btn waves-effect waves-light">Cadastrar-se</a>
-              </div>
-            </form>
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <button type="submit" class="btn col s12 waves-effect waves-light">Entrar</button>
+          </div>
+          <div class="col s12 m6 l6">
+            <a href="/quiz_service/signup/" class="btn col s12 waves-effect waves-light">Cadastrar-se</a>
           </div>
         </div>
-      </div>
+      </form>
+    </div>
   </body>
 </html>

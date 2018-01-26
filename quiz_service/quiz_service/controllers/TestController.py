@@ -6,12 +6,20 @@ from bson.objectid import ObjectId
 from quiz_service import app
 from quiz_service import db
 
+
 #respondendo o quiz
 @app.route("/quiz_service/tests/<test_id>/answers/", methods=["POST"])
 def send_answer(test_id):
     answers = request.form.getlist("answers[]")
-    test = db.test.find_one({"_id": ObjectId(test_id)})
-    user = db.user.find_one({"email": session["email"]})
+
+    test = db.tests.find_one(
+           {
+                "_id" : ObjectId(test_id)
+           })
+    user = db.users.find_one(
+           {
+                "email" : session["email"]
+           })
 
     script = {"user": user, "test": test, grade: 0}
 
@@ -30,12 +38,19 @@ def update_test(test_id):
     name = request.form.get("name")
     description = request.form.get("description")
 
-    test = db.test.find_one({"_id": ObjectId(test_id)})
+    test = db.tests.find_one(
+           {
+                "_id" : ObjectId(test_id)
+           })
 
     test["name"] = name
     test["description"] = description
 
-    db.test.update({"_id": ObjectId(test_id)}, test)
+    db.tests.update(
+    {
+        "_id" : ObjectId(test_id)},
+        test
+    )
 
     return "OK"
 
@@ -44,7 +59,10 @@ def update_test(test_id):
 @app.route("/quiz_service/tests/<test_id>/people/", methods=["PUT"])
 def share_test(test_id):
     email = request.form.get("email")
-    test = db.test.find_one({"_id": ObjectId(test_id)})
+    test = db.tests.find_one(
+           {
+                "_id" : ObjectId(test_id)
+           })
 
     emails = []
     if test["people"]:
@@ -54,7 +72,11 @@ def share_test(test_id):
 
     test["people"] = emails
 
-    db.test.update({"_id": ObjectId(test_id)}, test)
+    db.tests.update(
+    {
+        "_id" : ObjectId(test_id)},
+        test
+    )
 
     return redirect("/quiz_service/")
 
@@ -64,17 +86,23 @@ def save_test():
     name = request.form.get("name")
     description = request.form.get("description")
     questions = request.form.getlist("questions[]")
-    creator = db.user.find_one({"email": session["email"]})
+    creator = db.users.find_one(
+              {
+                "email" : session["email"]
+              })
 
     test = {"name": name, "description": description, "creator": creator, "people": "", "questions": []}
 
     for question in questions:
-        result = db.question.find_one({"_id": ObjectId(question)})
+        result = db.questions.find_one(
+                 {
+                    "_id" : ObjectId(question)
+                 })
         test["questions"].append(result)
 
-    db.test.insert_one(test)
+    db.tests.insert_one(test)
 
-    return render_template("index.html")
+    return jsonify(test)
 
 
 #Retornando todas as questões por tópico
@@ -83,30 +111,28 @@ def create_test(course, topic):
     number = int(request.form.get("number")) #Número de questões
     type = request.form.get("type"); #Tipo de questão
     #Esta pode ser melhorada
-    level = [0, 0, 0]
-    level[0] = float(request.form.get("easy")) # Fácil
-    level[1] = float(request.form.get("medium")) # Médio
-    level[2] = float(request.form.get("hard"))  # Díficil
-
-    print(course)
-    print(topic)
-    print(number)
-    print(type)
-    print(level)
+    level = [{ "name" : "easy", "percentage" : float(request.form.get("easy")) },
+            { "name" : "medium", "percentage" : float(request.form.get("medium")) },
+            { "name" : "difficult", "percentage" : float(request.form.get("hard")) }]
 
     questions = []
 
     i = 0
     while(i < 3):
-        amount = math.floor(level[i] * (number/100))
+        amount = math.floor(level[i]["percentage"] * (number/100))
         if amount != 0:
-            result = db.question.find({"topic._id" :ObjectId(topic), "level" : i, "type": type}).limit(amount)
+            result = db.questions.find(
+                     {
+                        "topic._id" : ObjectId(topic),
+                        "level" : level[i]["name"],
+                        "type": type
+                     }).limit(amount)
 
             for item in result:
                 if item["_id"]:
                     item["_id"] = str(item["_id"])
                     item["topic"]["_id"] = str(item["topic"]["_id"])
-                    item["topic"]["abstract"]["_id"] = str(item["topic"]["abstract"]["_id"])
+                    item["topic"]["course"]["_id"] = str(item["topic"]["course"]["_id"])
                 questions.append(item)
 
         i = i + 1
@@ -117,7 +143,10 @@ def create_test(course, topic):
 #Retornando um teste pelo ID
 @app.route("/quiz_service/tests/<test_id>")
 def get_test_by_id(test_id):
-    test = db.test.find_one({"_id": ObjectId(test_id)})
+    test = db.tests.find_one(
+           {
+                "_id" : ObjectId(test_id)
+           })
 
     test["_id"] = str(test["_id"])
     test["creator"]["_id"] = str(test["creator"]["_id"])
@@ -127,7 +156,7 @@ def get_test_by_id(test_id):
         if item["_id"]:
             item["_id"] = str(item["_id"])
             item["topic"]["_id"] = str(item["topic"]["_id"])
-            item["topic"]["abstract"]["_id"] = str(item["topic"]["abstract"]["_id"])
+            item["topic"]["course"]["_id"] = str(item["topic"]["course"]["_id"])
         questions.append(item)
 
     test["questions"] = questions
@@ -138,7 +167,10 @@ def get_test_by_id(test_id):
 #Retornando um teste pelo ID
 @app.route("/quiz_service/tests/<test_id>/answers/", methods=["GET"])
 def test(test_id):
-    test = db.test.find_one({"_id": ObjectId(test_id)})
+    test = db.tests.find_one(
+           {
+                "_id" : ObjectId(test_id)
+           })
 
     test["_id"] = str(test["_id"])
     test["creator"]["_id"] = str(test["creator"]["_id"])
@@ -148,11 +180,14 @@ def test(test_id):
         if item["_id"]:
             item["_id"] = str(item["_id"])
             item["topic"]["_id"] = str(item["topic"]["_id"])
-            item["topic"]["abstract"]["_id"] = str(item["topic"]["abstract"]["_id"])
+            item["topic"]["course"]["_id"] = str(item["topic"]["course"]["_id"])
         questions.append(item)
 
     test["questions"] = questions
 
-    answers = db.answers.find({"test._id": ObjectId(test_id)})
+    answers = db.answers.find(
+              {
+                "test._id" : ObjectId(test_id)
+              })
 
     return render_template("tests/verify.html", test=test, answers=answers)

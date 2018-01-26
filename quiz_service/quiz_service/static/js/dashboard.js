@@ -70,6 +70,17 @@ $(document).ready(function(){
      return $question
   }
 
+  /*gerando pdf*/
+  $("#btnGeneratePDF").on("click", function() {
+    var doc = new jsPDF('p', 'mm', [400, 480]);
+
+    doc.fromHTML($("#questions-list").get(0), 20, 20, {
+      "width": 400 });
+
+    doc.save("exam.pdf");
+
+  });
+
   /*Carregando disciplinas disponíveis no BD*/
   function loadCourses() {
     $.ajax({
@@ -106,6 +117,8 @@ $(document).ready(function(){
   /*Carregando tópicos quando disciplina selecionada*/
   $("#course").change(function(event) {
     var course = $("select#course").val();
+    $("#topic").empty(); /*apagando tópicos antigos*/
+
     loadTopics(course);
   });
 
@@ -178,6 +191,10 @@ $(document).ready(function(){
     $("#questions-list li input").each(function(index, element) {
       questions.push($(this).val());
     });
+
+    console.log(name);
+    console.log(description);
+    console.log(questions);
 
     saveTest(name, description, questions);
   });

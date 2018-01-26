@@ -3,7 +3,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Quiz Service</title>
+        <title>Quiz</title>
 
         <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
@@ -18,7 +18,7 @@
       <!-- menu de navegação -->
       <nav class="nav-extended blue-grey darken-1">
         <div class="nav-wrapper">
-          <a href="/quiz_service" class="brand-logo center">Quiz Service</a>
+          <a href="/quiz_service" class="brand-logo center">Quiz</a>
           <ul id="slide-out" class="side-nav">
             <li><a href="/quiz_service/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
           </ul>
@@ -29,13 +29,8 @@
       <!-- Tabela de quizzes criados -->
       <div class="container">
         <div class="card">
-          <div class="card-action">
-            <a id="call" class="waves-effect waves-light btn modal-trigger" href="#modal1">Compartilhar
-              <i class="material-icons right">share</i>
-            </a>
-          </div>
           <div class="card-content">
-            <h4>Meus Testes Criados</h4>
+            <h5>Meus Testes Criados</h5>
             <table class="highlight">
              <thead>
                <tr>
@@ -59,26 +54,10 @@
           </div>
         </div>
 
-        <!-- modal de compartilhamento -->
-        <div id="modal1" class="modal">
-          <div class="modal-content">
-            <h4>Compartilhar Quiz</h4>
-            <select id="test"></select>
-            <p>Para compartilhar, escreva o e-mail no campo abaixo.</p>
-            <input type="text" id="email">
-          </div>
-          <div class="modal-footer">
-            <a id="btnShare" class="modal-action modal-close waves-effect waves-green btn-flat">Compartilhar</a>
-          </div>
-        </div>
-
          <!-- meus testes para responder -->
          <div class="card">
-           <div class="card-action">
-
-           </div>
            <div class="card-content">
-             <h4>Meus Testes Compartilhados</h4>
+             <h5>Meus Testes Compartilhados</h5>
              <table class="highlight">
               <thead>
                 <tr>
@@ -92,9 +71,8 @@
                    {% for test in tests %}
                      <tr>
                        <input type="hidden" value="{{ test._id }}">
-                       <td>{{ test.name }}</td>
+                       <td><a href="/quiz_service/tests/{{ test._id }}/">{{ test.name }}</a></td>
                        <td>{{ test.description }}</td>
-                       <td><a href="/quiz_service/tests/{{ test._id }}" class="btn waves-effect waves-light">Responder</a></td>
                      </tr>
                    {% endfor %}
                 {% endif %}
@@ -102,7 +80,6 @@
             </table>
            </div>
          </div>
-
 
         <div class="fixed-action-btn">
             <a href="/quiz_service/dashboard/" class="btn-floating waves-effect waves-light btn-large">
