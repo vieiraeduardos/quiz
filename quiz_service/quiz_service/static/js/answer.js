@@ -35,13 +35,21 @@ $(document).ready(function(){
         answers.push($(this).val());
 
       });
+
     } else if(type == "trueOrFalse") {
       /*pegando todas as repostas do quiz*/
       $(".answer").each(function(index, element) {
         answers.push($(this).prop("checked"));
       });
+
     } else {
       /*multiple choice*/
+
+      /*pegando todas as repostas do quiz*/
+      $(".answer :checked").each(function(index, element) {
+        answers.push($(this).val());
+
+      });
     }
 
     sendAnswer(test, answers);

@@ -70,6 +70,25 @@ $(document).ready(function(){
      return $question
   }
 
+  /*Criando uma nova questão de múltipla escolha*/
+  function createMultipleChoiceQuestion(question) {
+    var $question = $("<li />")
+                    .addClass("row")
+                      .append($("<input />")
+                        .attr("type", "hidden")
+                        .attr("value", question["_id"]))
+                      .append($("<p />")
+                        .text(question["title"]))
+                      .append($("<p />")
+                        .text(question["choices"][0]))
+                      .append($("<p />")
+                        .text(question["choices"][1]))
+                      .append($("<p />")
+                        .text(question["choices"][2]))
+
+    return $question;
+  }
+
   /*gerando pdf*/
   $("#btnGeneratePDF").on("click", function() {
     var doc = new jsPDF('p', 'mm', [400, 480]);
@@ -145,8 +164,14 @@ $(document).ready(function(){
       /*Melhore esta parte*/
       data: {number: number, easy: level[0], medium: level[1], hard: level[2], type: type},
       success: function(data) {
-        for(index in data) {
-          $("#questions-list").append(createQuestion(data[index]));
+        if(type == "multipleChoice") {
+          for(index in data) {
+            $("#questions-list").append(createMultipleChoiceQuestion(data[index]));
+          }
+        } else {
+          for(index in data) {
+            $("#questions-list").append(createQuestion(data[index]));
+          }
         }
       }
     });
@@ -191,10 +216,6 @@ $(document).ready(function(){
     $("#questions-list li input").each(function(index, element) {
       questions.push($(this).val());
     });
-
-    console.log(name);
-    console.log(description);
-    console.log(questions);
 
     saveTest(name, description, questions);
   });

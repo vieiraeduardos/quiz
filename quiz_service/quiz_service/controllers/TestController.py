@@ -6,6 +6,16 @@ from bson.objectid import ObjectId
 from quiz_service import app
 from quiz_service import db
 
+def check_questions(test, answers):
+    correctAnswers = 0
+    i = 0
+    for t in test["questions"]:
+        if t["type"] == "trueOrFalse" or "multipleChoice":
+            if t["correctAnswer"] == answers[i]:
+                correctAnswers += 1
+        i += 1
+
+    return math.ceil(correctAnswers / len(answers) * 10)
 
 #respondendo o quiz
 @app.route("/quiz_service/tests/<test_id>/answers/", methods=["POST"])
@@ -21,7 +31,9 @@ def send_answer(test_id):
                 "email" : session["email"]
            })
 
-    script = {"user": user, "test": test, "grade": 0}
+    grade = check_questions(test, answers)
+
+    script = {"user": user, "test": test, "grade": grade}
 
     i = 0;
     for answer in answers:

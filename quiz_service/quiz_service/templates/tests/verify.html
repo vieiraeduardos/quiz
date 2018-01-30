@@ -3,7 +3,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Quiz Service</title>
+        <title>Quiz</title>
 
         <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
@@ -15,13 +15,13 @@
     <body>
 
       <!-- menu de navegação -->
-      <nav class="nav-extended blue-grey darken-1">
+      <nav class="nav-extended blue">
         <div class="nav-wrapper">
-          <a href="/quiz_service" class="brand-logo center">Quiz Service</a>
+          <a href="/quiz_service" class="brand-logo center">Quiz</a>
           <ul id="slide-out" class="side-nav">
             <li><a href="/quiz_service/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
           </ul>
-          <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+          <a data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
         </div>
       </nav>
 
@@ -36,12 +36,18 @@
                 <h5 id="description">{{ test.description }}</h5>
             </div>
             <div class="card-action">
-              <a id="call" class="waves-effect waves-light btn modal-trigger" href="#modal1">Editar
-                <i class="material-icons right">edit</i>
-              </a>
-              <a id="call-modal-share" class="waves-effect waves-light btn modal-trigger" href="#modal2">Compartilhar
-                <i class="material-icons right">share</i>
-              </a>
+              <div class="row">
+                <div class="col s12 m6 l6">
+                  <a id="call" class="col s12 m12 l12 waves-effect waves-light btn modal-trigger blue white-text" href="#modal1">Editar
+                    <i class="material-icons right">edit</i>
+                  </a>
+                </div>
+                <div class="col s12 m6 l6">
+                  <a id="call-modal-share" class="col s12 m12 l12 waves-effect waves-light btn modal-trigger blue white-text" href="#modal2">Compartilhar
+                    <i class="material-icons right">share</i>
+                  </a>
+                </div>
+              </div>
             </div>
         </div>
 
@@ -72,6 +78,9 @@
 
         <!-- respostas dos usuários do teste -->
         <div class="card">
+          <div class="card-content">
+            <span class="card-title">Respostas do Quiz</span>
+          </div>
           {% if answers %}
             {% for answer in answers %}
               <div class="card-content">
@@ -87,7 +96,7 @@
                 </div>
               </div>
               <div class="card-action">
-                  <a href="/quiz_service/answers/{{ answer._id}}" class="waves-effect waves-light btn">Ver</i></a>
+                  <a href="/quiz_service/answers/{{ answer._id}}" class="waves-effect waves-light btn blue white-text">Ver</i></a>
               </div>
             {% endfor %}
           {% endif %}
