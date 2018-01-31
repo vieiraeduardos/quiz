@@ -1,0 +1,111 @@
+<!doctype html>
+
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Quiz | Nova Questão</title>
+
+    <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/create.js') }}"></script>
+    <link rel = "stylesheet" href = "{{ url_for('static', filename='css/create.css') }}">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Nova Questão</span>
+
+          <div class="row">
+            <label>Título</label>
+            <input id="title" type="text">
+          </div>
+
+          <div class="row">
+            <label>Disciplina</label>
+            <select id="courses">
+              {% if courses %}
+                {% for course in courses %}
+                  <option value="{{ course._id }}">{{ course.name }}</option>
+                {% endfor %}
+              {% endif %}
+            </select>
+          </div>
+
+          <div class="row">
+            <label>Tópico</label>
+            <select id="topics">
+                <option>Escolha uma disciplina</option>
+            </select>
+          </div>
+          <div class="row">
+            <label>Nível</label>
+            <select id="levels">
+              <option value="easy">Fácil</option>
+              <option value="medium">Médio</option>
+              <option value="difficult">Díficil</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label>Tipo</label>
+            <select id="types">
+              <option value="shortAnswer">Resposta Curta</option>
+              <option value="trueOrFalse">Verdadeiro ou Falso</option>
+              <option value="multipleChoice">Múltipla Escolha</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <!-- painel de respostas curtas -->
+            <div id="short-answer-painel">
+              <label>Resposta</label>
+              <input type="text" id="correct-answer">
+            </div>
+
+            <!-- painel de respostas de verdadeiro e falso -->
+            <div id="true-or-false-painel">
+              <label>Resposta</label>
+              <div class="switch">
+                <label>
+                Falso
+                  <input id="correct-answer" type="checkbox">
+                  <span class="lever"></span>
+                Verdadeiro
+                </label>
+              </div>
+            </div>
+
+            <!-- painel de repostas de mútipla escolha -->
+            <div id="multiple-choice-painel">
+              <label>Resposta</label>
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <a id="btn-add-option" class="btn">Nova Opção<i class="material-icons right">add</i></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <label>Resposta Correta</label>
+                  <select id="correct-answer">
+                    <option>Adicione um opção</option>
+                  </select>
+                </div>
+              </div>
+              </div>
+              <ol id="options"></ol>
+            </div>
+          </div>
+        </div>
+        <div class="card-action">
+          <a id="btn-create-question" class="btn">Criar</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -162,7 +162,7 @@ $(document).ready(function(){
       url: "http://127.0.0.1:5000/quiz/test/" + course + "/" + topic + "/",
       type: "POST",
       /*Melhore esta parte*/
-      data: {number: number, easy: level[0], medium: level[1], hard: level[2], type: type},
+      data: { number: number, easy: level[0], medium: level[1], hard: level[2], type: type},
       success: function(data) {
         if(type == "multipleChoice") {
           for(index in data) {
