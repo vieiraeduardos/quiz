@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5a6b40bb28059f1c61dd9fd8"},"course":{"_id":{"$oid":"5a6b3fde28059f1c61dd9fd6"},"name":"Sistemas Operacionais I"},"name":"Introdução"}
+{"_id":{"$oid":"5a6b40d628059f1c61dd9fd9"},"course":{"_id":{"$oid":"5a6b3fde28059f1c61dd9fd6"},"name":"Sistemas Operacionais I"},"name":"Gerenciamento de Memória"}
+{"_id":{"$oid":"5a6b40f828059f1c61dd9fda"},"course":{"_id":{"$oid":"5a6b3fde28059f1c61dd9fd6"},"name":"Sistemas Operacionais I"},"name":"Sistema de Entrada e Saída"}
+{"_id":{"$oid":"5a6b410528059f1c61dd9fdb"},"course":{"_id":{"$oid":"5a6b3fde28059f1c61dd9fd6"},"name":"Sistemas Operacionais I"},"name":"Sistema de Arquivos"}

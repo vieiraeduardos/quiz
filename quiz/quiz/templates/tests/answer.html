@@ -1,0 +1,93 @@
+<!doctype html>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Quiz Service</title>
+
+        <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+
+        <script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+        <script src="{{ url_for('static', filename='js/answer.js') }}"></script>
+   </head>
+    <body>
+
+      <!-- menu de navegação -->
+      <nav class="nav-extended blue darken-1">
+        <div class="nav-wrapper">
+          <a href="/quiz" class="brand-logo center">Quiz</a>
+          <ul id="slide-out" class="side-nav">
+            <li><a href="/quiz/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
+          </ul>
+          <a data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
+
+      <div class="container">
+        <!-- informações sobre o questionário -->
+        <div class="card">
+            <div class="card-content">
+              <input type="hidden" id="test-id" value="{{ test._id }}">
+              <input type="hidden" id="test-type" value="{{ test.questions[0].type }}">
+                <label>Nome</label>
+                <h5>{{ test.name }}</h5>
+                <label>Descrição</label>
+                <h5>{{ test.description }}</h5>
+            </div>
+        </div>
+
+        <!-- questionário -->
+        <div class="card">
+            <div class="card-content">
+                <ol id="test">
+                  {% if test.questions %}
+                    {% for question in test.questions %}
+                      <li>{{ question.title }}</li>
+                      {% if question.type == "shortAnswer" %}
+                        <textarea class="answer materialize-textarea"></textarea>
+                      {% elif question.type == "trueOrFalse" %}
+                        <div class="switch">
+                          <label>
+                          Falso
+                            <input class="answer" type="checkbox">
+                            <span class="lever"></span>
+                          Verdadeiro
+                          </label>
+                        </div>
+                      {% elif question.type == "multipleChoice" %}
+                        <div class="answer">
+                          <p>
+              							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[0]}}" value="{{question.choices[0]}}">
+              							<label for="{{question.title}}{{question.choices[0]}}">{{question.choices[0]}}</label>
+              						</p>
+                          <p>
+              							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[1]}}" value="{{question.choices[1]}}">
+              							<label for="{{question.title}}{{question.choices[1]}}">{{question.choices[1]}}</label>
+              						</p>
+                          <p>
+              							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[2]}}" value="{{question.choices[2]}}">
+              							<label for="{{question.title}}{{question.choices[2]}}">{{question.choices[2]}}</label>
+              						</p>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                </ol>
+            </div>
+            <div class="card-action">
+              <div class="row">
+                <div class="col s12 m6 l6">
+                  <a id="btnAnswer" class="btn white-text blue darken-1 col s12 m12 l12 waves-effect waves-light">Enviar</a>
+                </div>
+                <div class="col s12 m6 l6">
+                  <a href="/quiz/" class="btn white-text blue darken-1 col s12 m12 l12 waves-effect waves-light">Cancelar</a>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </body>
+</html>
