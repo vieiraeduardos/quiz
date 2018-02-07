@@ -58,35 +58,51 @@ $(document).ready(function(){
 
   /*Criando uma nova questão*/
   function createQuestion(question) {
-    $question = $("<li />")
-                .addClass("row")
-                  .append($("<input />")
-                    .attr("type", "hidden")
-                    .attr("value", question["_id"]))
-                  .append($("<p />")
-                    .text(question["title"]));
+    console.log(question);
+    /*Criando questões de resposta curta ou verdadeiro ou falso*/
+    if(question["type"] == "shortAnswer" || question["type"] == "trueOrFalse") {
+      $question = $("<li />")
+                  .addClass("row")
+                    .append($("<input />")
+                      .attr("type", "hidden")
+                      .attr("value", question["_id"]))
+                    .append($("<p />")
+                      .text(question["title"]))
+                    .append($("<a />")
+                        .addClass("btn")
+                        .click(function(event) {
+                          $(this).parent().remove();
+                        })
+                          .append($("<i />")
+                            .addClass("material-icons")
+                            .text("remove")));
 
+    /*Criando questões de múltipla escolha*/
+    } else {
+      var $question = $("<li />")
+                      .addClass("row")
+                        .append($("<input />")
+                          .attr("type", "hidden")
+                          .attr("value", question["_id"]))
+                        .append($("<p />")
+                          .text(question["title"]))
+                        .append($("<p />")
+                          .text(question["choices"][0]))
+                        .append($("<p />")
+                          .text(question["choices"][1]))
+                        .append($("<p />")
+                          .text(question["choices"][2]))
+                        .append($("<a />")
+                            .addClass("btn")
+                            .click(function(event) {
+                              $(this).parent().remove();
+                            })
+                              .append($("<i />")
+                                .addClass("material-icons")
+                                .text("remove")));
+    }
 
-     return $question
-  }
-
-  /*Criando uma nova questão de múltipla escolha*/
-  function createMultipleChoiceQuestion(question) {
-    var $question = $("<li />")
-                    .addClass("row")
-                      .append($("<input />")
-                        .attr("type", "hidden")
-                        .attr("value", question["_id"]))
-                      .append($("<p />")
-                        .text(question["title"]))
-                      .append($("<p />")
-                        .text(question["choices"][0]))
-                      .append($("<p />")
-                        .text(question["choices"][1]))
-                      .append($("<p />")
-                        .text(question["choices"][2]))
-
-    return $question;
+    return $question
   }
 
   /*gerando pdf*/
@@ -164,23 +180,15 @@ $(document).ready(function(){
       /*Melhore esta parte*/
       data: { number: number, easy: level[0], medium: level[1], hard: level[2], type: type},
       success: function(data) {
-        if(type == "multipleChoice") {
-          for(index in data) {
-            $("#questions-list").append(createMultipleChoiceQuestion(data[index]));
-          }
-        } else {
           for(index in data) {
             $("#questions-list").append(createQuestion(data[index]));
           }
-        }
       }
     });
   }
 
   /*Pesquisando uma lista de questões por tópico*/
   $("#btnSearch").click(function(event) {
-    $("#questions-list").empty();
-
     var course = $("select#course").val(); /*ID do curso*/
     var topic = $("select#topic").val(); /*ID do tópico*/
     var number = $("#number").val(); /*Número de questões*/

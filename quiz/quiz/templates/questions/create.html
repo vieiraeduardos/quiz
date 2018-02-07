@@ -10,102 +10,85 @@
     <script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
-    <script src="{{ url_for('static', filename='js/create.js') }}"></script>
-    <link rel = "stylesheet" href = "{{ url_for('static', filename='css/create.css') }}">
-
+    <script>
+      $(document).ready(function(event) {
+         $(".button-collapse").sideNav();
+      });
+    </script>
   </head>
 
   <body>
-    <div class="container">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Nova Questão</span>
 
-          <div class="row">
-            <label>Título</label>
-            <input id="title" type="text">
-          </div>
+    <ul id="slide-out" class="side-nav">
+       <li>
+         <div class="card">
+           <div class="card-content">
+               <div class="row">
+                 <label>Disciplinas</label>
+                 <select id="course" required>
+                   <option disabled selected>Selecione uma disciplina</option>
+                 </select>
+               </div>
 
-          <div class="row">
-            <label>Disciplina</label>
-            <select id="courses">
-              {% if courses %}
-                {% for course in courses %}
-                  <option value="{{ course._id }}">{{ course.name }}</option>
-                {% endfor %}
-              {% endif %}
-            </select>
-          </div>
+               <div class = "row">
+                 <label>Tópicos</label>
+                 <select id="topic" required>
+                   <option disabled selected>Selecione um tópico</option>
+                 </select>
+               </div>
 
-          <div class="row">
-            <label>Tópico</label>
-            <select id="topics">
-                <option>Escolha uma disciplina</option>
-            </select>
-          </div>
-          <div class="row">
-            <label>Nível</label>
-            <select id="levels">
-              <option value="easy">Fácil</option>
-              <option value="medium">Médio</option>
-              <option value="difficult">Díficil</option>
-            </select>
-          </div>
+               <div class = "row">
+                 <label>Número de Questões</label>
+                 <input type="number" id="number" min=0 required>
+               </div>
 
-          <div class="row">
-            <label>Tipo</label>
-            <select id="types">
-              <option value="shortAnswer">Resposta Curta</option>
-              <option value="trueOrFalse">Verdadeiro ou Falso</option>
-              <option value="multipleChoice">Múltipla Escolha</option>
-            </select>
-          </div>
+               <div class = "row">
+                 <label>Nível</label><br>
+                 <label>Fácil</label>
+                 <p class="range-field">
+                   <input type="range" class="level" min="0" max="100" step="10" value="0"/>
+                 </p>
+                 <label>Médio</label>
+                 <p class="range-field">
+                   <input type="range" class="level" min="0" max="100" step="10" value="0"/>
+                 </p>
+                 <label>Díficil</label>
+                 <p class="range-field">
+                   <input type="range" class="level" min="0" max="100" step="10" value="0"/>
+                 </p>
+               </div>
 
-          <div class="row">
-            <!-- painel de respostas curtas -->
-            <div id="short-answer-painel">
-              <label>Resposta</label>
-              <input type="text" id="correct-answer">
-            </div>
+               <div class="row">
+                 <label>Tipo</label><br>
+                 <div id="type">
+                   <p>
+                     <input name="group1" type="radio" id="test1" value="shortAnswer"/>
+                     <label for="test1">Resposta Curta</label>
+                   </p>
+                   <p>
+                     <input name="group1" type="radio" id="test2" value="trueOrFalse"/>
+                     <label for="test2">Verdadeiro ou Falso</label>
+                   </p>
+                   <p>
+                     <input name="group1" type="radio" id="test3" value="multipleChoice"/>
+                     <label for="test3">Múltipla Escolha</label>
+                   </p>
+                 </div>
+               </div>
 
-            <!-- painel de respostas de verdadeiro e falso -->
-            <div id="true-or-false-painel">
-              <label>Resposta</label>
-              <div class="switch">
-                <label>
-                Falso
-                  <input id="correct-answer" type="checkbox">
-                  <span class="lever"></span>
-                Verdadeiro
-                </label>
-              </div>
-            </div>
+               <div class="row">
+                 <a type="button" class="btn col s12 m12 l12 waves-effect waves-light blue" id="btnSearch">Pesquisar</a>
+               </div>
+           </div>
+         </div>
+       </li>
+       <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+       <li><a href="#!">Second Link</a></li>
+       <li><div class="divider"></div></li>
+       <li><a class="subheader">Subheader</a></li>
+       <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+     </ul>
+     <a class="button-collapse"><i class="material-icons">menu</i></a>
 
-            <!-- painel de repostas de mútipla escolha -->
-            <div id="multiple-choice-painel">
-              <label>Resposta</label>
-              <div class="row">
-                <div class="col s12 m12 l12">
-                  <a id="btn-add-option" class="btn">Nova Opção<i class="material-icons right">add</i></a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col s12 m12 l12">
-                  <label>Resposta Correta</label>
-                  <select id="correct-answer">
-                    <option>Adicione um opção</option>
-                  </select>
-                </div>
-              </div>
-              </div>
-              <ol id="options"></ol>
-            </div>
-          </div>
-        </div>
-        <div class="card-action">
-          <a id="btn-create-question" class="btn">Criar</a>
-        </div>
-      </div>
-    </div>
   </body>
 </html>
