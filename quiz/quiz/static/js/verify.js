@@ -13,6 +13,19 @@ $(document).ready(function(){
   /*Inicializando os modais*/
   $('.modal-trigger').leanModal();
 
+  /*Apagando teste*/
+  $("#btn-remove-test").click(function(event){
+    var testId = $("#test-id").val();
+
+    $.ajax({
+      url: "http://127.0.0.1:5000/quiz/tests/" + testId + "/",
+      type: "DELETE",
+      success: function(data) {
+        window.location.replace("http://127.0.0.1:5000/quiz/");
+      }
+    });
+  });
+
   /*adicionando evento ao botão de modal de edição*/
   $("#call").click(function(event) {
     var name = $("#name").text();

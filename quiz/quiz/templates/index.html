@@ -26,65 +26,41 @@
         </div>
       </nav>
 
-      <!-- Tabela de quizzes criados -->
+      <!-- lista de testes criados -->
       <div class="container">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Meus Testes Criados</span>
-            <table class="highlight">
-             <thead>
-               <tr>
-                 <th>Nome</th>
-                 <th>Descrição</th>
-               </tr>
-             </thead>
-
-             <tbody id="created_tests">
-               {% if created_tests %}
-                  {% for test in created_tests %}
-                    <tr>
-                      <input type="hidden" value="{{ test._id }}">
-                      <td><a href="/quiz/tests/{{ test._id }}/answers">{{ test.name }}</a></td>
-                      <td>{{ test.description }}</td>
-                    </tr>
-                  {% endfor %}
-               {% endif %}
-             </tbody>
-           </table>
+        {% if created_tests %}
+          <h4>Meus Testes</h4>
+          {% for test in created_tests %}
+          <div class="card">
+           <div class="card-content">
+             <span class="card-title"><a href="/quiz/tests/{{ test._id }}/answers">{{ test.name }}</a></span>
+             <input type="hidden" value="{{ test._id }}">
+             <p>{{ test.description }}</p>
+           </div>
           </div>
+          {% endfor %}
+        {% endif %}
+
+       <!-- meus testes para responder -->
+       {% if tests %}
+        <h4>Testes Compartilhados Comigo</h4>
+        {% for test in tests %}
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title"><a href="/quiz/tests/{{ test._id }}/">{{ test.name }}</a></span>
+              <input type="hidden" value="{{ test._id }}">
+              <p>{{ test.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+       {% endif %}
+
         </div>
 
-         <!-- meus testes para responder -->
-         <div class="card">
-           <div class="card-content">
-             <span class="card-title">Meus Testes Compartilhados</span>
-             <table class="highlight">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Descrição</th>
-                </tr>
-              </thead>
-
-              <tbody id="tests">
-                {% if tests %}
-                   {% for test in tests %}
-                     <tr>
-                       <input type="hidden" value="{{ test._id }}">
-                       <td><a href="/quiz/tests/{{ test._id }}/">{{ test.name }}</a></td>
-                       <td>{{ test.description }}</td>
-                     </tr>
-                   {% endfor %}
-                {% endif %}
-              </tbody>
-            </table>
-           </div>
-         </div>
-
         <div class="fixed-action-btn">
-            <a href="/quiz/dashboard/" class="btn-floating waves-effect waves-light btn-large blue">
-                <i class="large material-icons">add</i>
-            </a>
+          <a href="/quiz/dashboard/" class="btn-floating waves-effect waves-light btn-large blue">
+            <i class="large material-icons">add</i>
+          </a>
         </div>
       </div>
     </body>

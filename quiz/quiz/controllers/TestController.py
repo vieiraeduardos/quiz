@@ -8,9 +8,12 @@ from quiz import db
 
 def check_questions(test, answers):
     correctAnswers = 0
-    i = 0
+
+    for a in answers:
+        print(a)
+
     for t in test["questions"]:
-        if t["type"] == "trueOrFalse" or "multipleChoice":
+        if t["type"] == "trueOrFalse" or t["type"] == "multipleChoice":
             if t["correctAnswer"] == answers[i]:
                 correctAnswers += 1
         i += 1
@@ -21,28 +24,42 @@ def check_questions(test, answers):
 @app.route("/quiz/tests/<test_id>/answers/", methods=["POST"])
 def send_answer(test_id):
     answers = request.form.getlist("answers[]")
+    values = request.form.getlist("values[]")
 
     test = db.tests.find_one(
            {
                 "_id" : ObjectId(test_id)
            })
+
     user = db.users.find_one(
            {
-                "email" : session["email"]
+                "_id" : ObjectId(session["_id"])
            })
 
-    grade = check_questions(test, answers)
+    num_questions = len(test["questions"])
+    num_correct_questions = 0
 
-    script = {"user": user, "test": test, "grade": grade}
+    #analisando se a questão está certa
+    for answer, value in zip(answers, values):
+        for question in test["questions"]:
+            if value == str(question["_id"]):
+                question["answer"] = answer
 
-    i = 0;
-    for answer in answers:
-        script["test"]["questions"][i]["answer"] = answer
-        i = i + 1
+                if question["type"] == "trueOrFalse" or question["type"] == "multipleChoice":
+                    if question["correctAnswer"] == question["answer"]:
+                        num_correct_questions += 1
 
-    db.answers.insert(script)
+    grade = num_correct_questions / num_questions * 10
+
+    #salvando resposta no BD
+    db.answers.insert({
+        "user": user,
+        "test": test,
+        "grade": grade
+    })
 
     return "OK"
+
 
 #atualizando as informações do teste
 @app.route("/quiz/tests/<test_id>/", methods=["PUT"])
@@ -203,3 +220,10 @@ def test(test_id):
               })
 
     return render_template("tests/verify.html", test=test, answers=answers)
+
+
+@app.route("/quiz/tests/<test_id>/", methods=["DELETE"])
+def remove_test(test_id):
+    db.tests.remove( {"_id": ObjectId(test_id)} )
+
+    return "OK"

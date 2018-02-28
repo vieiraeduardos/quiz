@@ -45,34 +45,38 @@
                 <ol id="test">
                   {% if test.questions %}
                     {% for question in test.questions %}
-                      <li>{{ question.title }}</li>
-                      {% if question.type == "shortAnswer" %}
-                        <textarea class="answer materialize-textarea"></textarea>
-                      {% elif question.type == "trueOrFalse" %}
-                        <div class="switch">
-                          <label>
-                          Falso
-                            <input class="answer" type="checkbox">
-                            <span class="lever"></span>
-                          Verdadeiro
-                          </label>
-                        </div>
-                      {% elif question.type == "multipleChoice" %}
-                        <div class="answer">
-                          <p>
-              							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[0]}}" value="{{question.choices[0]}}">
-              							<label for="{{question.title}}{{question.choices[0]}}">{{question.choices[0]}}</label>
-              						</p>
-                          <p>
-              							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[1]}}" value="{{question.choices[1]}}">
-              							<label for="{{question.title}}{{question.choices[1]}}">{{question.choices[1]}}</label>
-              						</p>
-                          <p>
-              							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[2]}}" value="{{question.choices[2]}}">
-              							<label for="{{question.title}}{{question.choices[2]}}">{{question.choices[2]}}</label>
-              						</p>
-                        </div>
-                      {% endif %}
+                      <div class="question">
+                        <input class="id" type="hidden" value="{{ question._id }}">
+                        <input class="type" type="hidden" value="{{ question.type }}">
+                        <li>{{ question.title }}</li>
+                        {% if question.type == "shortAnswer" %}
+                          <textarea class="answer materialize-textarea"></textarea>
+                        {% elif question.type == "trueOrFalse" %}
+                          <div class="switch">
+                            <label>
+                            Falso
+                              <input class="answer" type="checkbox">
+                              <span class="lever"></span>
+                            Verdadeiro
+                            </label>
+                          </div>
+                        {% elif question.type == "multipleChoice" %}
+                          <div class="answer">
+                            <p>
+                							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[0]}}" value="{{question.choices[0]}}">
+                							<label for="{{question.title}}{{question.choices[0]}}">{{question.choices[0]}}</label>
+                						</p>
+                            <p>
+                							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[1]}}" value="{{question.choices[1]}}">
+                							<label for="{{question.title}}{{question.choices[1]}}">{{question.choices[1]}}</label>
+                						</p>
+                            <p>
+                							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[2]}}" value="{{question.choices[2]}}">
+                							<label for="{{question.title}}{{question.choices[2]}}">{{question.choices[2]}}</label>
+                						</p>
+                          </div>
+                        {% endif %}
+                      </div>
                     {% endfor %}
                   {% endif %}
                 </ol>

@@ -11,14 +11,15 @@ $(document).ready(function(){
   $(".button-collapse").sideNav();
 
   /*respondendo o quiz*/
-  function sendAnswer(test, answers) {
+  function sendAnswer(test, answers, values) {
+
     $.ajax({
       url: "http://127.0.0.1:5000/quiz/tests/" + test + "/answers/",
       type: "POST",
-      data: {answers: answers},
+      data: {answers: answers, values: values},
       success: function(data) {
         console.log("Test " + test + "answered in " + Date());
-        window.location.replace("http://127.0.0.1:5000/quiz/");
+        /*window.location.replace("http://127.0.0.1:5000/quiz/");*/
       }
     });
   }
@@ -26,33 +27,43 @@ $(document).ready(function(){
   /*adicionando evento ao botão de enviar resposta*/
   $("#btnAnswer").click(function(event) {
     var test = $("#test-id").val(); /*ID do quiz*/
-    var answers = []; /*lista de repostas do quiz*/
-    var type = $("#test-type").val();
+    var values = []; /*lista dos valores do ID de cada resposta*/
+    var answers = [];
+    /*pegando respostas curtas*/
+    $(".question").each(function(index, element){
+      var resposta = $(this).children(".answer").val();
 
-    if(type == "shortAnswer") {
-      /*pegando todas as repostas do quiz*/
-      $(".answer").each(function(index, element) {
-        answers.push($(this).val());
+      if(resposta) {
+        var resposta_id = $(this).children(".id").val();
+        answers.push(resposta);
+        values.push(resposta_id);
+      }
+    });
 
-      });
+    /*pegando respostas de verdadeiro ou falso*/
+    $(".answer").each(function(index, element) {
+      var resposta = $(this).prop("checked");
 
-    } else if(type == "trueOrFalse") {
-      /*pegando todas as repostas do quiz*/
-      $(".answer").each(function(index, element) {
-        answers.push($(this).prop("checked"));
-      });
+      if(resposta == true || resposta == false) {
+        var resposta_id = $(this).parent().parent().siblings(".id").val();
+        answers.push(resposta);
+        values.push(resposta_id);
+      }
+    });
 
-    } else {
-      /*multiple choice*/
+    /*pegando respostas de múltipla escolha*/
+    $(".answer :checked").each(function(index, element) {
+      var resposta = $(this).val();
 
-      /*pegando todas as repostas do quiz*/
-      $(".answer :checked").each(function(index, element) {
-        answers.push($(this).val());
+      if(resposta) {
+        var resposta_id = $(this).parent().parent().siblings(".id").val();
+        answers.push(resposta);
+        values.push(resposta_id);
+      }
+    });
 
-      });
-    }
+    console.log(answers);
 
-    sendAnswer(test, answers);
+    sendAnswer(test, answers, values);
   });
-
 });

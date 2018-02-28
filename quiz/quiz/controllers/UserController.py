@@ -38,6 +38,7 @@ def login():
     if user:
         if check_password_hash(user["password"], password):
             session["email"] = user["email"]
+            session["_id"] = str(user["_id"])
             return redirect("/quiz/")
 
     error = "E-mail ou senha estão incorretos!"
