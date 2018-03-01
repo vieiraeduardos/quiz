@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="col s12 m6 l6">
-                  <a class="col s12 m12 l12 waves-effect waves-light btn modal-trigger blue white-text" href="#modal2">Compartilhar
+                  <a id="btn-share-test" class="col s12 m12 l12 waves-effect waves-light btn modal-trigger blue white-text" href="#modal2">Compartilhar
                     <i class="material-icons right">share</i>
                   </a>
                 </div>
@@ -75,8 +75,9 @@
         <div id="modal2" class="modal">
           <div class="modal-content">
             <h4>Compartilhar Quiz</h4>
-            <p>Para compartilhar, escreva o e-mail no campo abaixo.</p>
-            <input type="text" id="email">
+            <select id="class">
+              <!-- lista de turmas criadas pelo usuário -->
+            </select>
           </div>
           <div class="modal-footer">
             <a id="btnShare" class="modal-action modal-close waves-effect waves-green btn-flat">Compartilhar</a>

@@ -26,6 +26,22 @@ $(document).ready(function(){
     });
   });
 
+  /*carregando turmas para compartilhar teste*/
+  $("#btn-share-test").click(function(event) {
+    $.ajax({
+      url: "http://127.0.0.1:5000/quiz/classes/",
+      type: "GET",
+      success: function(data) {
+        for(index in data) {
+          $("#class").append($("<option />").text(data[index]["name"]));
+        }
+
+        /*Habilitando o uso de efeitos do Materialize nos selects*/
+        $('select').material_select();
+      }
+    });
+  });
+
   /*adicionando evento ao botão de modal de edição*/
   $("#call").click(function(event) {
     var name = $("#name").text();
