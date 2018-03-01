@@ -15,3 +15,4 @@ from quiz.controllers import TopicController
 from quiz.controllers import UserController
 from quiz.controllers import TestController
 from quiz.controllers import AnswerController
+from quiz.controllers import ClassController

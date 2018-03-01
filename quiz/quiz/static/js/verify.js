@@ -33,7 +33,7 @@ $(document).ready(function(){
       type: "GET",
       success: function(data) {
         for(index in data) {
-          $("#class").append($("<option />").text(data[index]["name"]));
+          $("#class").append($("<option />").text(data[index]["name"]).attr("value", data[index]["_id"]));
         }
 
         /*Habilitando o uso de efeitos do Materialize nos selects*/
@@ -69,26 +69,22 @@ $(document).ready(function(){
     });
   });
 
-  /*Compartilhando teste*/
-  function shareTest(test, email) {
-    $.ajax({
-      url: "http://127.0.0.1:5000/quiz/tests/" + test + "/people/",
-      type: "PUT",
-      data: {"test": test, "email": email},
-      success: function(data) {
-        console.log("Test " + test + "shared in " + Date());
-        window.location.replace("http://127.0.0.1:5000/quiz/");
-
-      }
-    });
-  }
 
   /*Adicionando evento ao botão de compartilhar*/
   $("#btnShare").click(function(event) {
     var test = $("#test-id").val()
-    var email = $("#email").val();
+    var classe = $("#class :checked").val();
 
-    shareTest(test, email);
+    $.ajax({
+      url: "http://127.0.0.1:5000/quiz/tests/" + test + "/classes/",
+      type: "PUT",
+      data: {"test": test, "classe": classe},
+      success: function(data) {
+        console.log("Test " + test + "shared in " + Date());
+        window.location.replace("http://127.0.0.1:5000/quiz/tests/" + test + "/answers/");
+
+      }
+    });
   });
 
 });

@@ -85,27 +85,14 @@ def update_test(test_id):
 
 
 #Compartilhando teste
-@app.route("/quiz/tests/<test_id>/people/", methods=["PUT"])
+@app.route("/quiz/tests/<test_id>/classes/", methods=["PUT"])
 def share_test(test_id):
-    email = request.form.get("email")
-    test = db.tests.find_one(
-           {
-                "_id" : ObjectId(test_id)
-           })
+    classe_id = request.form.get("classe")
 
-    emails = []
-    if test["people"]:
-        emails.append(test["people"])
+    print(classe_id)
+    classe = db.classes.find_one( {"_id": ObjectId(classe_id)} )
 
-    emails.append(email)
-
-    test["people"] = emails
-
-    db.tests.update(
-    {
-        "_id" : ObjectId(test_id)},
-        test
-    )
+    db.tests.update({"_id" : ObjectId(test_id)},{"$addToSet": {"classes": classe}})
 
     return "OK"
 
