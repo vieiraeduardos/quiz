@@ -74,11 +74,14 @@ $(document).ready(function(){
   $("#btnShare").click(function(event) {
     var test = $("#test-id").val()
     var classe = $("#class :checked").val();
+    var title = $("#task-title").val();
+    var description = $("#task-description").val();
+    var deadline = $("#deadline").val();
 
     $.ajax({
       url: "http://127.0.0.1:5000/quiz/tests/" + test + "/classes/",
       type: "PUT",
-      data: {"test": test, "classe": classe},
+      data: {"test": test, "classe": classe, "title": title, "description": description, "deadline": deadline},
       success: function(data) {
         console.log("Test " + test + "shared in " + Date());
         window.location.replace("http://127.0.0.1:5000/quiz/tests/" + test + "/answers/");

@@ -6,19 +6,6 @@ from bson.objectid import ObjectId
 from quiz import app
 from quiz import db
 
-def check_questions(test, answers):
-    correctAnswers = 0
-
-    for a in answers:
-        print(a)
-
-    for t in test["questions"]:
-        if t["type"] == "trueOrFalse" or t["type"] == "multipleChoice":
-            if t["correctAnswer"] == answers[i]:
-                correctAnswers += 1
-        i += 1
-
-    return math.ceil(correctAnswers / len(answers) * 10)
 
 #respondendo o quiz
 @app.route("/quiz/tests/<test_id>/answers/", methods=["POST"])
@@ -87,12 +74,24 @@ def update_test(test_id):
 #Compartilhando teste
 @app.route("/quiz/tests/<test_id>/classes/", methods=["PUT"])
 def share_test(test_id):
+    title = request.form.get("title")
+    description = request.form.get("description")
+    deadline = request.form.get("deadline")
     classe_id = request.form.get("classe")
 
-    print(classe_id)
     classe = db.classes.find_one( {"_id": ObjectId(classe_id)} )
 
     db.tests.update({"_id" : ObjectId(test_id)},{"$addToSet": {"classes": classe}})
+
+    test = db.tests.find_one( {"_id": ObjectId(test_id)} )
+
+    db.tasks.insert({
+        "title": title,
+        "description": description,
+        "deadline": deadline,
+        "class": classe,
+        "test": test
+    })
 
     return "OK"
 

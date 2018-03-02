@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="col s12 m6 l6">
-                  <a id="btn-share-test" class="col s12 m12 l12 waves-effect waves-light btn modal-trigger blue white-text" href="#modal2">Compartilhar
+                  <a id="btn-share-test" class="col s12 m12 l12 waves-effect waves-light btn modal-trigger blue white-text" href="#new-task-modal">Compartilhar
                     <i class="material-icons right">share</i>
                   </a>
                 </div>
@@ -71,16 +71,32 @@
           </div>
         </div>
 
-        <!-- modal de compartilhamento -->
-        <div id="modal2" class="modal">
+        <!-- modal de compartilhamento de testes -->
+        <div id="new-task-modal" class="modal">
           <div class="modal-content">
-            <h4>Compartilhar Quiz</h4>
-            <select id="class">
-              <!-- lista de turmas criadas pelo usuário -->
-            </select>
+            <div class="row">
+              <label>Título</label>
+              <input type="text" id="task-title">
+            </div>
+
+            <div class="row">
+              <label>Descrição</label>
+              <textarea id="task-description" class="materialize-textarea"></textarea>
+            </div>
+
+            <div class="row">
+              <label>Turma</label>
+              <select id="class"></select>
+            </div>
+
+            <div class="row">
+              <label>Prazo</label>
+              <input id="deadline" type="date">
+            </div>
           </div>
           <div class="modal-footer">
-            <a id="btnShare" class="modal-action modal-close waves-effect waves-green btn-flat">Compartilhar</a>
+            <a id="btnShare" class="modal-action modal-close waves-effect waves-light btn-flat">Compartilhar</a>
+            <a class="modal-action modal-close waves-effect waves-light btn-flat">Cancelar</a>
           </div>
         </div>
 
