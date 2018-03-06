@@ -10,6 +10,34 @@ $(document).ready(function(){
   /*Inicializando o botão collapse*/
   $(".button-collapse").sideNav();
 
+
+  var c = $("#test-time").val();
+  var t;
+  var timer_is_on = 0;
+
+  function timedCount() {
+    $("#time").text(c);
+    c = c - 1;
+
+    if(c == 0) {
+      window.location.replace("http://127.0.0.1:6543/classroom/");
+    }
+
+    t = setTimeout(function(){
+      timedCount()
+    }, 1000);
+  }
+
+  function startCount() {
+      if (!timer_is_on) {
+          timer_is_on = 1;
+          timedCount();
+      }
+  }
+
+  startCount();
+
+
   /*respondendo o quiz*/
   function sendAnswer(test, answers, values) {
 

@@ -3,7 +3,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Quiz Service</title>
+        <title>Quiz</title>
 
         <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
@@ -30,12 +30,17 @@
         <!-- informações sobre o questionário -->
         <div class="card">
             <div class="card-content">
+              <input type="hidden" id="test-time" value="{{ test.time }}">
               <input type="hidden" id="test-id" value="{{ test._id }}">
               <input type="hidden" id="test-type" value="{{ test.questions[0].type }}">
                 <label>Nome</label>
                 <h5>{{ test.name }}</h5>
                 <label>Descrição</label>
                 <h5>{{ test.description }}</h5>
+                <label>Número de Tentativas Restantes</label>
+                <h5 id="num-attempts">{{ num_attempts }}</h5>
+                <label>Tempo</label>
+                <h5 id="time"></h5>
             </div>
         </div>
 

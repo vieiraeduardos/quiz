@@ -160,40 +160,49 @@ def create_test(course, topic):
 
 
 #Retornando um teste pelo ID
-@app.route("/quiz/tests/<test_id>/", methods=["GET"])
-def get_test_by_id(test_id):
+@app.route("/quiz/<class_id>/tests/<test_id>/", methods=["GET"])
+def get_test_by_id(class_id, test_id):
     try:
+        turma = db.classes.find_one( {"_id": ObjectId(class_id)} )
         test = db.tests.find_one( {"_id": ObjectId(test_id)} )
 
     except:
         return render_template("errors/404.html"), 404
 
-    frag = False
-    for c in test["classes"]:
-        classe = db.classes.find_one( {"_id": c["_id"], "participants._id": {"$in": [ObjectId(session["_id"])]}} )
+    #user = db.users.find_one({"_id": ObjectId(session["_id"])})
 
-        if classe:
-            frag = True
-            break
+    #classe = db.classes.find_one( {"_id": ObjectId(turma["_id"]), "participants": {"$in": user}} )
 
-    if frag == False:
-        return render_template("errors/403.html")
+    #if classe == None:
+    #    return render_template("errors/403.html"), 403
 
-    test["_id"] = str(test["_id"])
-    test["creator"]["_id"] = str(test["creator"]["_id"])
+    if "_id" in session:
+        answer = db.answers.find_one({"user._id": ObjectId(session["_id"]), "test._id": test["_id"]})
 
-    questions = []
-    for item in test["questions"]:
-        if item["_id"]:
-            item["_id"] = str(item["_id"])
-            item["topic"]["_id"] = str(item["topic"]["_id"])
-            item["topic"]["course"]["_id"] = str(item["topic"]["course"]["_id"])
-        questions.append(item)
+        num_attempts = test["numAttempts"]
 
-    test["questions"] = questions
+        if answer:
+            num_attempts -= answer["attempt"]
 
-    return render_template("tests/answer.html", test=test)
+            if num_attempts == 0:
+                return render_template("errors/403.html"), 403
 
+        test["_id"] = str(test["_id"])
+        test["creator"]["_id"] = str(test["creator"]["_id"])
+
+        questions = []
+        for item in test["questions"]:
+            if item["_id"]:
+                item["_id"] = str(item["_id"])
+                item["topic"]["_id"] = str(item["topic"]["_id"])
+                item["topic"]["course"]["_id"] = str(item["topic"]["course"]["_id"])
+            questions.append(item)
+
+        test["questions"] = questions
+
+        return render_template("tests/answer.html", test=test, num_attempts=num_attempts)
+    else:
+        return redirect("/quiz/login/")
 
 #Retornando um teste pelo ID
 @app.route("/quiz/tests/<test_id>/answers/", methods=["GET"])
