@@ -203,14 +203,15 @@ $(document).ready(function(){
   });
 
   /*Salvando teste*/
-  function saveTest(name, description, questions) {
+  function saveTest(name, description, questions, numAttempts, time) {
       $.ajax({
         url: "http://127.0.0.1:5000/quiz/tests/",
         type: "POST",
-        data: {"name": name, "description": description, "questions": questions},
+        data: {"name": name, "description": description, "questions": questions, "ntime": time, "numAttempts": numAttempts},
         success: function(data) {
           console.log("New test saved in " + Date());
           window.location.replace("http://127.0.0.1:5000/quiz/");
+
         }
       });
   }
@@ -219,13 +220,15 @@ $(document).ready(function(){
   $("#btnSave").click(function(event) {
     var name = $("#name").val();
     var description = $("#description").val();
+    var numAttempts = $("#num-attempts").val();
+    var time = $("#time").val();
     var questions = [];
 
     $("#questions-list li input").each(function(index, element) {
       questions.push($(this).val());
     });
 
-    saveTest(name, description, questions);
+    saveTest(name, description, questions, numAttempts, time);
   });
 
 });

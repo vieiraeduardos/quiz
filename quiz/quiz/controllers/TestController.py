@@ -100,13 +100,17 @@ def share_test(test_id):
 def save_test():
     name = request.form.get("name")
     description = request.form.get("description")
+    num_attempts = request.form.get("numAttempts")
+    time = request.form.get("ntime")
+
     questions = request.form.getlist("questions[]")
+
     creator = db.users.find_one(
               {
                 "email" : session["email"]
               })
 
-    test = {"name": name, "description": description, "creator": creator, "people": "", "questions": []}
+    test = {"name": name, "description": description, "creator": creator, "classes": [], "questions": [], "numAttempts": num_attempts, "time": time}
 
     for question in questions:
         result = db.questions.find_one(
@@ -158,10 +162,22 @@ def create_test(course, topic):
 #Retornando um teste pelo ID
 @app.route("/quiz/tests/<test_id>/", methods=["GET"])
 def get_test_by_id(test_id):
-    test = db.tests.find_one(
-           {
-                "_id" : ObjectId(test_id)
-           })
+    try:
+        test = db.tests.find_one( {"_id": ObjectId(test_id)} )
+
+    except:
+        return render_template("errors/404.html"), 404
+
+    frag = False
+    for c in test["classes"]:
+        classe = db.classes.find_one( {"_id": c["_id"], "participants._id": {"$in": [ObjectId(session["_id"])]}} )
+
+        if classe:
+            frag = True
+            break
+
+    if frag == False:
+        return render_template("errors/403.html")
 
     test["_id"] = str(test["_id"])
     test["creator"]["_id"] = str(test["creator"]["_id"])

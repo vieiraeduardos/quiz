@@ -19,7 +19,7 @@ $(document).ready(function(){
       data: {answers: answers, values: values},
       success: function(data) {
         console.log("Test " + test + "answered in " + Date());
-        /*window.location.replace("http://127.0.0.1:5000/quiz/");*/
+        window.location.replace("http://127.0.0.1:5000/quiz/");
       }
     });
   }

@@ -7,6 +7,7 @@ from quiz import db
 #vendo os detalhes da reposta
 @app.route("/quiz/answers/<answer_id>/", methods=["GET"])
 def see_answer(answer_id):
+
     answer = db.answers.find_one(
              {
                 "_id" : ObjectId(answer_id)
