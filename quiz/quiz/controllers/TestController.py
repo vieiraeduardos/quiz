@@ -110,16 +110,15 @@ def save_test():
                 "email" : session["email"]
               })
 
-    test = {"name": name, "description": description, "creator": creator, "classes": [], "questions": [], "numAttempts": num_attempts, "time": time}
-
-    for question in questions:
-        result = db.questions.find_one(
-                 {
-                    "_id" : ObjectId(question)
-                 })
-        test["questions"].append(result)
-
-    db.tests.insert_one(test)
+    db.tests.insert_one({
+        "name": name,
+        "description": description,
+        "creator": creator,
+        "classes": [],
+        "questions": questions,
+        "numAttempts": num_attempts,
+        "time": time
+    })
 
     return "OK"
 
@@ -216,21 +215,33 @@ def test(test_id):
     test["creator"]["_id"] = str(test["creator"]["_id"])
 
     questions = []
-    for item in test["questions"]:
-        if item["_id"]:
-            item["_id"] = str(item["_id"])
-            item["topic"]["_id"] = str(item["topic"]["_id"])
-            item["topic"]["course"]["_id"] = str(item["topic"]["course"]["_id"])
-        questions.append(item)
 
-    test["questions"] = questions
+    for id in test["questions"]:
+        question = db.questions.find_one({"_id": ObjectId(id)})
+
+        if question["type"] == "multipleChoice":
+            questions.append({
+                "_id": str(question["_id"]),
+                "title": question["title"],
+                "type": question["type"],
+                "correctAnswer": question["correctAnswer"],
+                "choices": question["choices"]
+            })
+        else:
+            questions.append({
+                "_id": str(question["_id"]),
+                "title": question["title"],
+                "type": question["type"],
+                "correctAnswer": question["correctAnswer"]
+            })
+
 
     answers = db.answers.find(
               {
                 "test._id" : ObjectId(test_id)
               })
 
-    return render_template("tests/verify.html", test=test, answers=answers)
+    return render_template("tests/verify.html", test=test, answers=answers, questions=questions)
 
 
 #removendo um teste
