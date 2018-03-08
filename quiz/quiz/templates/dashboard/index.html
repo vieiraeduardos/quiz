@@ -13,15 +13,17 @@
 
         <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
         <script src="{{ url_for('static', filename='js/create.js') }}"></script>
+
         <link rel = "stylesheet" href = "{{ url_for('static', filename='css/create.css') }}">
 
     </head>
     <body>
+      <a href="#modal-edit-question" class="modal-trigger">trigger</a>
 
       <!-- menu de navegação -->
       <nav class="nav-extended blue">
         <div class="nav-wrapper">
-          <a href="/quiz" class="brand-logo center">Quiz</a>
+          <a href="/quiz/" class="brand-logo center">Quiz</a>
           <ul id="slide-out" class="side-nav">
             <li><a href="/quiz/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
           </ul>
@@ -120,6 +122,37 @@
                   <input type="number" id="time" min="1" value="1">
 
                   <ol class="card-title" id="questions-list"></ol>
+                </div>
+
+                <!-- modal de edição de questão -->
+                <div id="modal-edit-question" class="modal">
+                  <div class="modal-content">
+                    <div class="row">
+                      <span class="card-title">Editando questão</span>
+                    </div>
+
+                    <div class="row">
+                      <label>Título</label>
+                      <input id="modal-question-title" type="text">
+                    </div>
+
+                    <div class="row">
+                      <div class="row">
+                        <div class="col s12 m12 l12">
+                          <a id="btn-add-option" class="btn">Nova Opção<i class="material-icons right">add</i></a>
+                        </div>
+                      </div>
+                      <ol id="options"></ol>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <!-- ID da questão editada -->
+                    <input id="modal-question-id" type="hidden">
+
+                    <a id="btn-save-question" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
+                    <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                  </div>
                 </div>
 
                 <!-- painel para criação de novas questões manualemente -->

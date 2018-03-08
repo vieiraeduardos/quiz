@@ -58,6 +58,95 @@
             </div>
         </div>
 
+        <!-- lista de questões -->
+        {% if questions %}
+          {% for question in questions %}
+            <div class="card">
+              <div class="card-content">
+                <span class="card-title">{{ question.title }}</span>
+                {% if question.type == "multipleChoice" %}
+                  <ol>
+                    {% for choice in question.choices %}
+                      <li>{{ choice }}</li>
+                    {% endfor %}
+                  </ol>
+                {% endif %}
+              </div>
+              <div class="card-action">
+                <!-- ID da questão -->
+                <input class="question-id" type="hidden" value="{{ question._id }}">
+
+                <!-- botão para remover questão -->
+                <a class="btn red waves-effect waves-light white-text">Remover
+                  <i class="material-icons right">remove</i>
+                </a>
+
+                <!-- botão para editar questão -->
+                <a href="#modal-edit-question" class="btn-call-modal-edit-question modal-trigger btn blue waves-effect waves-light white-text">Editar
+                  <i class="material-icons right">edit</i>
+                </a>
+              </div>
+            </div>
+          {%  endfor %}
+        {% endif %}
+
+        <!-- respostas dos usuários do teste -->
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Respostas do Quiz</span>
+          </div>
+          {% if answers %}
+            {% for answer in answers %}
+              <div class="card-content">
+                <div class="row">
+                  <div class="col s12 m6 l6">
+                    <label>Nome</label>
+                    <h5>{{ answer.user.name }}</h5>
+                  </div>
+                  <div class="col s12 m6 l6">
+                      <label>Nota</label>
+                      <h5>{{ answer.grade }}</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="card-action">
+                  <a href="/quiz/answers/{{ answer._id}}" class="waves-effect waves-light btn blue white-text">Ver</i></a>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <!-- modal de edição de questão -->
+        <div id="modal-edit-question" class="modal">
+          <div class="modal-content">
+            <div class="row">
+              <span class="card-title">Editando questão</span>
+            </div>
+
+            <div class="row">
+              <label>Título</label>
+              <input id="modal-question-title" type="text">
+            </div>
+
+            <div class="row">
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <a id="btn-add-option" class="btn">Nova Opção<i class="material-icons right">add</i></a>
+                </div>
+              </div>
+              <ol id="options"></ol>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <!-- ID da questão editada -->
+            <input id="modal-question-id" type="hidden">
+
+            <a id="btn-save-question" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+          </div>
+        </div>
+
         <!-- modal de edição -->
         <div id="modal1" class="modal">
           <div class="modal-content">
@@ -102,49 +191,6 @@
             <a id="btnShare" class="modal-action modal-close waves-effect waves-light btn-flat">Compartilhar</a>
             <a class="modal-action modal-close waves-effect waves-light btn-flat">Cancelar</a>
           </div>
-        </div>
-
-        {% if questions %}
-          {% for question in questions %}
-            <div class="card">
-              <div class="card-content">
-                <span class="card-title">{{ question.title }}</span>
-                {% if question.type == "multipleChoice" %}
-                  <ol>
-                    {% for choice in question.choices %}
-                      <li>{{ choice }}</li>
-                    {% endfor %}
-                  </ol>
-                {% endif %}
-              </div>
-            </div>
-          {%  endfor %}
-        {% endif %}
-
-        <!-- respostas dos usuários do teste -->
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Respostas do Quiz</span>
-          </div>
-          {% if answers %}
-            {% for answer in answers %}
-              <div class="card-content">
-                <div class="row">
-                  <div class="col s12 m6 l6">
-                    <label>Nome</label>
-                    <h5>{{ answer.user.name }}</h5>
-                  </div>
-                  <div class="col s12 m6 l6">
-                      <label>Nota</label>
-                      <h5>{{ answer.grade }}</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="card-action">
-                  <a href="/quiz/answers/{{ answer._id}}" class="waves-effect waves-light btn blue white-text">Ver</i></a>
-              </div>
-            {% endfor %}
-          {% endif %}
         </div>
 
       </div>

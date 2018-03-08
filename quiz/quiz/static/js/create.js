@@ -56,8 +56,8 @@ $(document).ready(function() {
                         .addClass("option")
                         .attr("type", "text"))
                     .append($("<a />")
-                        .addClass("btn btn-remove-option")
-                        .text("Remover Opção")
+                        .addClass("btn red btn-remove-option")
+                        .text("Remover")
                         .click(function(event) {
                           $(this).parent().remove();
                         })
@@ -103,56 +103,6 @@ $(document).ready(function() {
     });
   });
 
-  /*Criando uma nova questão*/
-  function createQuestion(question) {
-    console.log(question);
-    /*Criando questões de resposta curta ou verdadeiro ou falso*/
-    if(question["type"] == "shortAnswer" || question["type"] == "trueOrFalse") {
-      $question = $("<li />")
-                  .addClass("row")
-                    .append($("<input />")
-                      .attr("type", "hidden")
-                      .attr("value", question["_id"]))
-                    .append($("<p />")
-                      .text(question["title"]))
-                    .append($("<a />")
-                        .addClass("btn btn-remove-option")
-                        .text("Remover Questão")
-                        .click(function(event) {
-                          $(this).parent().remove();
-                        })
-                          .append($("<i />")
-                            .addClass("material-icons right")
-                            .text("remove")));
-
-    /*Criando questões de múltipla escolha*/
-    } else {
-      var $question = $("<li />")
-                      .addClass("row")
-                        .append($("<input />")
-                          .attr("type", "hidden")
-                          .attr("value", question["_id"]))
-                        .append($("<p />")
-                          .text(question["title"]))
-                        .append($("<p />")
-                          .text(question["choices"][0]))
-                        .append($("<p />")
-                          .text(question["choices"][1]))
-                        .append($("<p />")
-                          .text(question["choices"][2]))
-                        .append($("<a />")
-                            .addClass("btn btn-remove-option")
-                            .text("Remover Questão")
-                            .click(function(event) {
-                              $(this).parent().remove();
-                            })
-                              .append($("<i />")
-                                .addClass("material-icons right")
-                                .text("remove")));
-    }
-
-    return $question
-  }
 
   /*criando nova questão manualmente*/
   $("#btn-create-question").click(function(event) {
@@ -167,8 +117,6 @@ $(document).ready(function() {
     $(".option").each(function(index, element) {
       answers.push($(this).val());
     });
-
-    console.log(correctAnswer);
 
     $.ajax({
       url: "http://127.0.0.1:5000/quiz/questions/",

@@ -13,6 +13,92 @@ $(document).ready(function(){
   /*Inicializando os modais*/
   $('.modal-trigger').leanModal();
 
+  /*adicionando um novo campo de opção*/
+  $("#btn-add-option").click(function(event) {
+    var $option = $("<li />")
+                    .append($("<input />")
+                        .addClass("option")
+                        .attr("value", "")
+                        .attr("type", "text"))
+                    .append($("<a />")
+                        .addClass("btn btn-remove-option")
+                        .text("Remover Opção")
+                        .click(function(event) {
+                          $(this).parent().remove();
+                        })
+                          .append($("<i />")
+                            .addClass("material-icons right")
+                            .text("remove")));
+
+    $("#options").append($option);
+  });
+
+  /*salvando questão editada*/
+  $("#btn-save-question").click(function(event){
+    var testId = $("#test-id").val();
+    var questionId = $("#modal-question-id").val();
+    var title = $("#modal-question-title").val();
+    var correctAnswer = $(".option:first").val();
+    var choices = [];
+
+    /*pegando as opções da questão*/
+    $(".option").each(function(index, element) {
+      choices.push($(this).val());
+    });
+
+    $.ajax({
+      url: "http://127.0.0.1:5000/quiz/questions/" + questionId + "/",
+      type: "PUT",
+      data: {
+        "title": title,
+        "correctAnswer": correctAnswer,
+        "choices": choices
+      },
+      success: function(data) {
+          window.location.replace("http://127.0.0.1:5000/quiz/tests/" + testId + "/answers/");
+      }
+    });
+
+  });
+
+  /*carregando questão para editar*/
+  $(".btn-call-modal-edit-question").click(function(event){
+    var questionId = $(this).siblings(".question-id").val();
+
+    $.ajax({
+      url: "http://127.0.0.1:5000/quiz/questions/" + questionId + "/",
+      type: "GET",
+      success: function(data) {
+
+        $("#modal-question-id").val(data["_id"]);
+        $("#modal-question-title").val(data["title"]);
+
+        if(data["type"] == "multipleChoice") {
+          $("#options").empty();
+
+          $(data["choices"]).each(function(index, element) {
+            var $choice = $("<li />")
+                            .append($("<input />")
+                                .addClass("option")
+                                .attr("value", element)
+                                .attr("type", "text"))
+                            .append($("<a />")
+                                .addClass("btn btn-remove-option")
+                                .text("Remover")
+                                .click(function(event) {
+                                  $(this).parent().remove();
+                                })
+                                  .append($("<i />")
+                                    .addClass("material-icons right")
+                                    .text("remove")));
+
+            $("#options").append($choice);
+          });
+        }
+      }
+    });
+  });
+
   /*Apagando teste*/
   $("#btn-remove-test").click(function(event){
     var testId = $("#test-id").val();

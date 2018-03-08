@@ -6,6 +6,45 @@ from bson.objectid import ObjectId
 from quiz import app
 from quiz import db
 
+@app.route("/quiz/questions/<question_id>/", methods=["PUT"])
+def update_question(question_id):
+    title = request.form.get("title")
+    correctAnswer = request.form.get("correctAnswer")
+    choices = request.form.getlist("choices[]")
+
+    db.questions.update({"_id": ObjectId(question_id)},
+    {"$set": {
+        "title": title,
+        "correctAnswer": correctAnswer,
+        "choices": choices
+    }})
+
+    return "OK"
+
+
+@app.route("/quiz/questions/<question_id>/", methods=["GET"])
+def get_question(question_id):
+    result = db.questions.find_one( {"_id": ObjectId(question_id)} )
+
+    if result["type"] == "multipleChoice":
+        question = {
+            "_id": str(result["_id"]),
+            "title": result["title"],
+            "type": result["type"],
+            "correctAnswer": result["correctAnswer"],
+            "choices": result["choices"]
+        }
+    else:
+        question = {
+            "_id": str(result["_id"]),
+            "title": result["title"],
+            "type": result["type"],
+            "correctAnswer": result["correctAnswer"]
+        }
+
+    return jsonify(question)
+
+
 #Retornando todas as questões do BD
 @app.route("/quiz/questions/", methods=["GET"])
 def redirect_questions():

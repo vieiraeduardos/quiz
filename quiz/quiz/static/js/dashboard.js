@@ -8,37 +8,10 @@ $(document).ready(function(){
 
   // Initialize collapse button
   $(".button-collapse").sideNav();
-  // Initialize collapsible (uncomment the line below if you use the dropdown variation)
-  $('.collapsible').collapsible();
 
-  function createTest(test) {
-    $test = $("<tr />")
-              .append($("<td />")
-                .attr("name", "name")
-                .text(test["name"]))
-              .append($("<td />")
-                .attr("name", "description")
-                .text(test["description"]))
-              .append($("<td />")
-                .attr("name", "option")
-                  .append($("<a />"))
-                    .attr("href", "#")
-                    .text("Compartilhar"))
+  /*Inicializando os modais*/
+  $('.modal-trigger').leanModal();
 
-    return $test;
-  }
-
-  function loadTests() {
-      $.ajax({
-        url: "http://127.0.0.1/quiz/tests/",
-        type: "GET",
-        success: function(data) {
-          for(index in data) {
-            $("#tests").append(createTest(data[index]));
-          }
-        }
-      });
-  }
 
   /*Criando um novo tópico*/
   function createTopic(topic) {
@@ -56,9 +29,12 @@ $(document).ready(function(){
 
   }
 
+  function callModal() {
+
+  }
+
   /*Criando uma nova questão*/
   function createQuestion(question) {
-    console.log(question);
     /*Criando questões de resposta curta ou verdadeiro ou falso*/
     if(question["type"] == "shortAnswer" || question["type"] == "trueOrFalse") {
       $question = $("<li />")
@@ -69,13 +45,25 @@ $(document).ready(function(){
                     .append($("<p />")
                       .text(question["title"]))
                     .append($("<a />")
-                        .addClass("btn")
+                        .addClass("btn red waves-effect waves-light")
                         .click(function(event) {
                           $(this).parent().remove();
                         })
                           .append($("<i />")
                             .addClass("material-icons")
-                            .text("remove")));
+                            .text("remove")))
+                    .append($("<a />")
+                        .attr("href", "#modal-edit-question")
+                        .addClass("modal-trigger btn blue waves-effect waves-light")
+                        .click(function(event) {
+                          callModal();
+                          $('#modal-edit-question').modal('open');
+
+                        })
+                          .append($("<i />")
+                            .addClass("material-icons")
+                            .text("edit")));
+
 
     /*Criando questões de múltipla escolha*/
     } else {
@@ -92,19 +80,26 @@ $(document).ready(function(){
       var $question = $("<li />")
                       .addClass("row")
                         .append($("<input />")
+                          .addClass("question-id")
                           .attr("type", "hidden")
                           .attr("value", question["_id"]))
                         .append($("<p />")
                           .text(question["title"]))
                         .append($choices)
                         .append($("<a />")
-                            .addClass("btn")
+                            .addClass("btn red waves-effect waves-light")
                             .click(function(event) {
                               $(this).parent().remove();
                             })
                               .append($("<i />")
                                 .addClass("material-icons")
-                                .text("remove")));
+                                .text("remove")))
+                        .append($("<a />")
+                            .attr("href", "#modal-edit-question")
+                            .addClass("modal-trigger btn blue waves-effect waves-light")
+                              .append($("<i />")
+                                .addClass("material-icons")
+                                .text("edit")));
     }
 
     return $question
