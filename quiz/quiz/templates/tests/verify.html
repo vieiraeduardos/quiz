@@ -100,6 +100,23 @@
           </div>
         </div>
 
+        {% if test.questions %}
+          {% for question in test.questions %}
+            <div class="card">
+              <div class="card-content">
+                <span class="card-title">{{ question.title }}</span>
+                {% if question.type == "multipleChoice" %}
+                  <ol>
+                    {% for choice in question.choices %}
+                      <li>{{ choice }}</li>
+                    {% endfor %}
+                  </ol>
+                {% endif %}
+              </div>
+            </div>
+          {%  endfor %}
+        {% endif %}
+
         <!-- respostas dos usuários do teste -->
         <div class="card">
           <div class="card-content">

@@ -79,6 +79,16 @@ $(document).ready(function(){
 
     /*Criando questões de múltipla escolha*/
     } else {
+      var $choices = $("<p />");
+
+      $(question["choices"]).each(function(index, element){
+        $choice = $("<p />")
+                  .text(element);
+
+        $choices.append($choice);
+
+      });
+
       var $question = $("<li />")
                       .addClass("row")
                         .append($("<input />")
@@ -86,12 +96,7 @@ $(document).ready(function(){
                           .attr("value", question["_id"]))
                         .append($("<p />")
                           .text(question["title"]))
-                        .append($("<p />")
-                          .text(question["choices"][0]))
-                        .append($("<p />")
-                          .text(question["choices"][1]))
-                        .append($("<p />")
-                          .text(question["choices"][2]))
+                        .append($choices)
                         .append($("<a />")
                             .addClass("btn")
                             .click(function(event) {

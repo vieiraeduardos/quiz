@@ -10,7 +10,6 @@ $(document).ready(function(){
   /*Inicializando o botão collapse*/
   $(".button-collapse").sideNav();
 
-
   var c = $("#test-time").val();
   var t;
   var timer_is_on = 0;

@@ -67,18 +67,12 @@
                           </div>
                         {% elif question.type == "multipleChoice" %}
                           <div class="answer">
-                            <p>
-                							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[0]}}" value="{{question.choices[0]}}">
-                							<label for="{{question.title}}{{question.choices[0]}}">{{question.choices[0]}}</label>
-                						</p>
-                            <p>
-                							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[1]}}" value="{{question.choices[1]}}">
-                							<label for="{{question.title}}{{question.choices[1]}}">{{question.choices[1]}}</label>
-                						</p>
-                            <p>
-                							<input class="blue darken-1" name="{{question.title}}" type="radio" id="{{question.title}}{{question.choices[2]}}" value="{{question.choices[2]}}">
-                							<label for="{{question.title}}{{question.choices[2]}}">{{question.choices[2]}}</label>
-                						</p>
+                            {% for choice in question.choices %}
+                              <p>
+                                <input class="blue" name="{{question.title}}" type="radio" id="{{question.title}}{{choice}}" value="{{choice}}">
+                                <label for="{{question.title}}{{choice}}">{{choice}}</label>
+                              </p>
+                            {% endfor %}
                           </div>
                         {% endif %}
                       </div>

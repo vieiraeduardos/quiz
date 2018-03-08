@@ -233,8 +233,11 @@ def test(test_id):
     return render_template("tests/verify.html", test=test, answers=answers)
 
 
+#removendo um teste
 @app.route("/quiz/tests/<test_id>/", methods=["DELETE"])
 def remove_test(test_id):
     db.tests.remove( {"_id": ObjectId(test_id)} )
+    #removendo respostas relacionadas ao teste
+    db.answers.remove( {"test._id": ObjectId(test_id)} )
 
     return "OK"
