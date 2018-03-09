@@ -75,6 +75,7 @@ def create_questions():
     }).inserted_id
 
     question = db.questions.find_one({"_id": ObjectId(id)})
+    
     if question["_id"]:
         question["_id"] = str(question["_id"])
         question["topic"]["_id"] = str(question["topic"]["_id"])

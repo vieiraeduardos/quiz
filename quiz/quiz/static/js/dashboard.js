@@ -29,9 +29,6 @@ $(document).ready(function(){
 
   }
 
-  function callModal() {
-
-  }
 
   /*Criando uma nova questão*/
   function createQuestion(question) {
@@ -51,18 +48,7 @@ $(document).ready(function(){
                         })
                           .append($("<i />")
                             .addClass("material-icons")
-                            .text("remove")))
-                    .append($("<a />")
-                        .attr("href", "#modal-edit-question")
-                        .addClass("modal-trigger btn blue waves-effect waves-light")
-                        .click(function(event) {
-                          callModal();
-                          $('#modal-edit-question').modal('open');
-
-                        })
-                          .append($("<i />")
-                            .addClass("material-icons")
-                            .text("edit")));
+                            .text("remove")));
 
 
     /*Criando questões de múltipla escolha*/
@@ -93,13 +79,8 @@ $(document).ready(function(){
                             })
                               .append($("<i />")
                                 .addClass("material-icons")
-                                .text("remove")))
-                        .append($("<a />")
-                            .attr("href", "#modal-edit-question")
-                            .addClass("modal-trigger btn blue waves-effect waves-light")
-                              .append($("<i />")
-                                .addClass("material-icons")
-                                .text("edit")));
+                                .text("remove")));
+
     }
 
     return $question
