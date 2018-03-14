@@ -8,10 +8,37 @@ $(document).ready(function(){
 
   // Initialize collapse button
   $(".button-collapse").sideNav();
+  // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+  $('.collapsible').collapsible();
 
-  /*Inicializando os modais*/
-  $('.modal-trigger').leanModal();
+  function createTest(test) {
+    $test = $("<tr />")
+              .append($("<td />")
+                .attr("name", "name")
+                .text(test["name"]))
+              .append($("<td />")
+                .attr("name", "description")
+                .text(test["description"]))
+              .append($("<td />")
+                .attr("name", "option")
+                  .append($("<a />"))
+                    .attr("href", "#")
+                    .text("Compartilhar"))
 
+    return $test;
+  }
+
+  function loadTests() {
+      $.ajax({
+        url: "http://127.0.0.1/quiz/tests/",
+        type: "GET",
+        success: function(data) {
+          for(index in data) {
+            $("#tests").append(createTest(data[index]));
+          }
+        }
+      });
+  }
 
   /*Criando um novo tópico*/
   function createTopic(topic) {
@@ -29,9 +56,9 @@ $(document).ready(function(){
 
   }
 
-
   /*Criando uma nova questão*/
   function createQuestion(question) {
+    console.log(question);
     /*Criando questões de resposta curta ou verdadeiro ou falso*/
     if(question["type"] == "shortAnswer" || question["type"] == "trueOrFalse") {
       $question = $("<li />")
@@ -50,7 +77,6 @@ $(document).ready(function(){
                             .addClass("material-icons")
                             .text("remove")));
 
-
     /*Criando questões de múltipla escolha*/
     } else {
       var $choices = $("<p />");
@@ -66,7 +92,6 @@ $(document).ready(function(){
       var $question = $("<li />")
                       .addClass("row")
                         .append($("<input />")
-                          .addClass("question-id")
                           .attr("type", "hidden")
                           .attr("value", question["_id"]))
                         .append($("<p />")
@@ -80,7 +105,6 @@ $(document).ready(function(){
                               .append($("<i />")
                                 .addClass("material-icons")
                                 .text("remove")));
-
     }
 
     return $question
