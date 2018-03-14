@@ -1,7 +1,16 @@
-from flask import jsonify
+from flask import jsonify, request
 
 from quiz import app
 from quiz import db
+
+#criando nova disciplina
+@app.route("/quiz/courses/", methods=["POST"])
+def create_course():
+    name = request.form.get("name")
+
+    db.courses.insert({"name": name})
+
+    return "OK"
 
 
 #Retornando todas as disciplinas no BD

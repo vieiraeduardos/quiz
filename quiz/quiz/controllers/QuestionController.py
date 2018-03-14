@@ -22,6 +22,7 @@ def update_question(question_id):
     return "OK"
 
 
+#Retornando uma questão pelo ID
 @app.route("/quiz/questions/<question_id>/", methods=["GET"])
 def get_question(question_id):
     result = db.questions.find_one( {"_id": ObjectId(question_id)} )
@@ -44,13 +45,6 @@ def get_question(question_id):
 
     return jsonify(question)
 
-
-#Retornando todas as questões do BD
-@app.route("/quiz/questions/", methods=["GET"])
-def redirect_questions():
-    courses = db.courses.find( {} )
-
-    return render_template("questions/create.html", courses=courses)
 
 #cadastrando uma nova questão
 @app.route("/quiz/questions/", methods=["POST"])

@@ -1,4 +1,5 @@
 import math
+from random import randint
 
 from flask import redirect, render_template, jsonify, request, session
 from bson.objectid import ObjectId
@@ -139,12 +140,20 @@ def create_test(course, topic):
     while(i < 3):
         amount = math.floor(level[i]["percentage"] * (number/100))
         if amount != 0:
-            result = db.questions.find(
+            limite = db.questions.find(
                      {
                         "topic._id" : ObjectId(topic),
                         "level" : level[i]["name"],
                         "type": type
-                     }).limit(amount)
+                     }).count()
+
+            num_random = randint(1, limite)
+
+            result = db.questions.find({
+               "topic._id" : ObjectId(topic),
+               "level" : level[i]["name"],
+               "type": type
+            }).limit(amount).skip(num_random).next()
 
             for item in result:
                 if item["_id"]:

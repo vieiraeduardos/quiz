@@ -13,6 +13,9 @@
 
         <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
         <script src="{{ url_for('static', filename='js/create.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/courses.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/topics.js') }}"></script>
+
         <link rel = "stylesheet" href = "{{ url_for('static', filename='css/create.css') }}">
 
     </head>
@@ -101,9 +104,7 @@
                 <div class="card-action">
                   <a class="btn waves-effect waves-light blue white-text" id="btnGeneratePDF">Baixar<i class="material-icons right">get_app</i></a>
                   <a class="btn waves-effect waves-light blue white-text" id="btnSave">Salvar<i class="material-icons right">save</i></a>
-                  <a id="btnCreate" class="btn waves-effect waves-light blue white-text modal-trigger" href="#new-question-modal">Nova Questão
-                    <i class="material-icons right">add</i>
-                  </a>
+
                 </div>
 
                 <div class="card-content">
@@ -179,6 +180,56 @@
           </div>
         </div>
 
+        <div class="fixed-action-btn vertical click-to-toggle">
+         <a class="btn-floating btn-large blue">
+           <i class="material-icons">menu</i>
+         </a>
+         <ul>
+           <li><a id="btnCreate" class="modal-trigger" href="#new-question-modal">Nova Questão<i class="material-icons right">add</i></a></li>
+           <li><a id="btn-call-modal-new-course" class="modal-trigger" href="#modal-new-course">Nova Disciplina<i class="material-icons right">add</i></a></li>
+           <li><a id="btn-call-modal-new-topic" class="modal-trigger" href="#modal-new-topic">Novo Tópico<i class="material-icons right">add</i></a></li>
+         </ul>
+       </div>
+
+      </div>
+
+      <!-- modal de criação de novos tópicos -->
+      <div id="modal-new-topic" class="modal">
+        <div class="modal-content">
+          <div class="row">
+            <h5>Criando novo tópico</h5>
+          </div>
+          <div class="row">
+            <select id="modal-topic-course">
+
+            </select>
+          </div>
+          <div class="row">
+            <label>Nome</label>
+            <input id="modal-topic-name" type="text">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a id="btn-create-topic" class="modal-action modal-close btn-flat">Criar</a>
+          <a class="modal-action modal-close btn-flat">Cancelar</a>
+        </div>
+      </div>
+
+      <!-- modal de criação de novas disciplinas -->
+      <div id="modal-new-course" class="modal">
+        <div class="modal-content">
+          <div class="row">
+            <h5>Criando nova diciplina</h5>
+          </div>
+          <div class="row">
+            <label>Nome</label>
+            <input id="modal-course-name" type="text">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a id="btn-create-course" class="modal-action modal-close btn-flat">Criar</a>
+          <a class="modal-action modal-close btn-flat">Cancelar</a>
+        </div>
       </div>
     </body>
 </html>

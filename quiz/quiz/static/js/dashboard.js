@@ -141,9 +141,8 @@ $(document).ready(function(){
   /*Carregando os tópicos no BD*/
   function loadTopics(course) {
     $.ajax({
-      url: "http://127.0.0.1:5000/quiz/topics/",
-      type: "POST",
-      data: {course: course},
+      url: "http://127.0.0.1:5000/quiz/courses/" + course + "/topics/",
+      type: "GET",
       success: function(data) {
         for(index in data) {
           $("#topic").append(createTopic(data[index]));
