@@ -61,7 +61,7 @@ $(document).ready(function() {
                           $(this).parent().remove();
                         })
                           .append($("<i />")
-                            .addClass("material-icons right")
+                            .addClass("material-icons")
                             .text("remove")));
 
     $("#options").append($option);
@@ -89,13 +89,16 @@ $(document).ready(function() {
     $("#nq-topic").empty(); /*apagando tópicos antigos*/
 
     $.ajax({
-      url: "http://127.0.0.1:5000/quiz/topics/",
-      type: "POST",
-      data: { course: course },
+      url: "http://127.0.0.1:5000/quiz/courses/" + course + "/topics/",
+      type: "GET",
       success: function(data) {
+        /*apagando disciplinas anteriores da tela*/
+        $("#nq-topic").empty();
+
         for(index in data) {
           $("#nq-topic").append(createTopic(data[index]));
         }
+        
         /*Recarregando as configurações de efeitos do Materialize nos selects*/
         $('select').material_select();
       }

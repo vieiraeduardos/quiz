@@ -31,7 +31,7 @@ def get_all_topics():
 
     return jsonify(topics)
 
-#Retornando todos os tópicos por disciplinas
+#Retornando todos os tópicos por disciplina
 @app.route("/quiz/courses/<course_id>/topics/", methods=["GET"])
 def get_topics_by_course(course_id):
 

@@ -123,59 +123,6 @@
                   <ol class="card-title" id="questions-list"></ol>
                 </div>
 
-                <!-- painel para criação de novas questões manualemente -->
-                <div id="new-question-modal" class="modal">
-                  <div class="modal-content">
-                    <span class="modal-title">Nova Questão</span>
-                    <div class="row">
-                      <label>Título</label>
-                      <input id="nq-title" type="text">
-                    </div>
-
-                    <div class="row">
-                      <label>Disciplina</label>
-                      <select id="nq-course"></select>
-                    </div>
-
-                    <div class="row">
-                      <label>Tópico</label>
-                      <select id="nq-topic">
-                          <option>Escolha uma disciplina</option>
-                      </select>
-                    </div>
-                    <div class="row">
-                      <label>Nível</label>
-                      <select id="nq-level">
-                        <option value="easy">Fácil</option>
-                        <option value="medium">Médio</option>
-                        <option value="difficult">Díficil</option>
-                      </select>
-                    </div>
-
-                    <div class="row">
-                      <label>Tipo</label>
-                      <select id="nq-type">
-                        <option value="shortAnswer">Resposta Curta</option>
-                        <option value="trueOrFalse">Verdadeiro ou Falso</option>
-                        <option value="multipleChoice">Múltipla Escolha</option>
-                      </select>
-                    </div>
-
-                    <div class="row">
-                      <div class="row">
-                        <div class="col s12 m12 l12">
-                          <a id="btn-add-option" class="btn">Nova Opção<i class="material-icons right">add</i></a>
-                        </div>
-                      </div>
-                      <ol id="options"></ol>
-                    </div>
-                  </div>
-
-                  <div class="modal-footer">
-                    <a id="btn-create-question" class="modal-action modal-close waves-effect waves-green btn-flat">Criar</a>
-                    <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-                  </div>
-                </div>
             </div>
           </div>
         </div>
@@ -191,6 +138,68 @@
          </ul>
        </div>
 
+      </div>
+
+      <!-- painel para criação de novas questões manualemente -->
+      <div id="new-question-modal" class="modal">
+        <div class="modal-content">
+          <span class="modal-title">Nova Questão</span>
+          <div class="row">
+            <label>Título</label>
+            <input id="nq-title" type="text">
+          </div>
+
+          <div class="row">
+            <label>Disciplina</label>
+            <select id="nq-course"></select>
+          </div>
+
+          <div class="row">
+            <label>Tópico</label>
+            <select id="nq-topic">
+                <option>Escolha uma disciplina</option>
+            </select>
+          </div>
+          <div class="row">
+            <label>Nível</label>
+            <select id="nq-level">
+              <option value="easy">Fácil</option>
+              <option value="medium">Médio</option>
+              <option value="difficult">Díficil</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label>Tipo</label>
+            <select id="nq-type">
+              <option value="shortAnswer">Resposta Curta</option>
+              <option value="trueOrFalse">Verdadeiro ou Falso</option>
+              <option value="multipleChoice">Múltipla Escolha</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <div class="row">
+              <div class="col s12 m12 l12">
+                <a id="btn-add-option" class="btn waves-effect waves-light blue white-text">Nova Opção<i class="material-icons right">add</i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="chip">
+                A primeira opção é a opção correta!
+                <i class="material-icons left">warning</i>
+              </div>
+            </div>
+            <div class="row">
+              <ol id="options"></ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a id="btn-create-question" class="modal-action modal-close waves-effect waves-green btn-flat">Criar</a>
+          <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
       </div>
 
       <!-- modal de criação de novos tópicos -->
