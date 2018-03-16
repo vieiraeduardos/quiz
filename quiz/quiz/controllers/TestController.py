@@ -147,13 +147,13 @@ def create_test(course, topic):
                         "type": type
                      }).count()
 
-            num_random = randint(1, limite)
+            num_random = randint(0, limite)
 
             result = db.questions.find({
-               "topic._id" : ObjectId(topic),
-               "level" : level[i]["name"],
-               "type": type
-            }).limit(amount).skip(num_random).next()
+                "topic._id" : ObjectId(topic),
+                "level" : level[i]["name"],
+                "type": type
+            }).limit(amount).skip(num_random)
 
             for item in result:
                 if item["_id"]:
@@ -163,6 +163,9 @@ def create_test(course, topic):
                 questions.append(item)
 
         i = i + 1
+
+
+    print(questions)
 
     return jsonify(questions)
 
