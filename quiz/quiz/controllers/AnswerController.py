@@ -12,6 +12,7 @@ def see_answer(answer_id):
              {
                 "_id" : ObjectId(answer_id)
              })
+    print(answer)
 
     return render_template("answers/see.html", answer=answer)
 

@@ -42,10 +42,23 @@
         <div class="card">
             <div class="card-content">
                 <ol id="test">
-                  {% if answer.test.questions %}
-                    {% for question in answer.test.questions %}
+                  {% if answer.answers %}
+                    {% for question in answer.answers %}
                       <li>{{ question.title }}</li>
-                      <p class="answer">{{ question.answer }}</p>
+                      <div class="row">
+                        <label>Resposta Correta</label>
+                      </div>
+                      <div class="row">
+                        <div class="chip">
+                          {{ question.correctAnswer }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label>Resposta</label>
+                      </div>
+                      <div class="row">
+                        <p class="answer">{{ question.answer }}</p>
+                      </div>
                     {% endfor %}
                   {% endif %}
                 </ol>
