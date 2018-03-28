@@ -1,5 +1,9 @@
 # quiz-service
+A system to create dynamic tests
 
-#Para importar o banco de dados, execute os comandos no terminal
+## Download
+git clone https://github.com/euodeionomedeusuario/quiz.git
+ 
+## License
+[MIT License](https://github.com/euodeionomedeusuario/classroom/blob/master/LICENSE) 2018 (c) Eduardo Silva Vieira
 
-mongoimport
