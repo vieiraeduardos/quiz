@@ -22,7 +22,7 @@ def get_all_users():
 #Redirecionando usuário para a página de login
 @app.route("/quiz/login/", methods=["GET"])
 def redirect_login():
-    return render_template("login/index.html")
+    return render_template("quiz/login/index.html")
 
 
 #Verificando a autenticação do usuário
@@ -42,13 +42,13 @@ def login():
             return redirect("/quiz/")
 
     error = "E-mail ou senha estão incorretos!"
-    return render_template("login/index.html", error=error)
+    return render_template("quiz/login/index.html", error=error)
 
 
 #Redirecionando usuário para a página de signup
 @app.route("/quiz/signup/", methods=["GET"])
 def redirect_signup():
-    return render_template("signup/index.html")
+    return render_template("quiz/signup/index.html")
 
 
 #Cadastrando um novo usuário

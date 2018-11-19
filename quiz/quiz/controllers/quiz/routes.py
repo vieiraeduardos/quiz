@@ -16,11 +16,11 @@ def index():
                     "people" : session["email"]
                 })
 
-        return render_template("index.html", created_tests=created_tests, tests=tests)
+        return render_template("quiz/index.html", created_tests=created_tests, tests=tests)
 
     return redirect("/quiz/login/")
 
 #Redirecionando para dashboard
 @app.route("/quiz/dashboard/", methods=["GET"])
 def dashboard():
-    return render_template("dashboard/index.html")
+    return render_template("quiz/dashboard/index.html")

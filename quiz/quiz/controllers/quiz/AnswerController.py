@@ -14,7 +14,7 @@ def see_answer(answer_id):
              })
     print(answer)
 
-    return render_template("answers/see.html", answer=answer)
+    return render_template("quiz/answers/see.html", answer=answer)
 
 
 #atualizando nota do quiz
