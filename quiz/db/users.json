@@ -1,3 +1,0 @@
-{"_id":{"$oid":"5a6aa3936c32800b503b5eb6"},"email":"eduardo@example.com","name":"Eduardo","password":"pbkdf2:sha256:50000$jUkvdmh4$6e850d25ff0d864a14c8ef2ffb303c03fa97be5503027e03330b7a1fab3031d7"}
-{"_id":{"$oid":"5a6aa4816c32800becfbedbd"},"email":"mario@example.com","name":"Mário","password":"pbkdf2:sha256:50000$6WiEGhHx$97f90fba9502f25a8049788620455cc4f97c2362c6679a7175b0fba0b2aea569"}
-{"_id":{"$oid":"5a6aa4b46c32800becfbedbe"},"email":"eduardo@example.com","name":"Eduardo","password":"pbkdf2:sha256:50000$cM1uQVPz$634cd1a2e9d4616b4a144147df880e0e9f25fa628ff4cd11df8a2ef896ae9edc"}
