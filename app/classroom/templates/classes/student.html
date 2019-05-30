@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Classroom</title>
+
+    {% include 'css.html' %}
+
+    <script src="{{ url_for('static', filename='js/class.js') }}"></script>
+
+  </head>
+  <body>
+    <!-- menu de navegação -->
+    <nav class="nav-extended red">
+      <div class="nav-wrapper">
+        <a href="/classroom/" class="brand-logo center">Classroom</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/classroom/quiz/">Quiz</a></li>
+          <li><a href="/classroom/users/">Configurações</a></li>
+          <li><a href="/classroom/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
+        </ul>
+
+        <ul id="slide-out" class="side-nav">
+          <li><a href="/classroom/quiz/">Quiz</a></li>
+          <li><a href="/classroom/users/">Configurações</a></li>
+          <li><a href="/classroom/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
+        </ul>
+        <a data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
+
+      </div>
+
+      <div class="nav-content">
+        <ul class="tabs tabs-transparent">
+          <li class="tab"><a class="active" href="#tasks">Tarefas</a></li>
+          <li class="tab"><a href="#warnings">Avisos</a></li>
+          <li class="tab"><a href="#participants">Participantes</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container" id="tasks">
+      <div class="card">
+        <div class="card-content">
+          <input type="hidden" id="class-id" value="{{ c._id }}">
+          <label>Nome da Turma</label>
+          <span class="card-title">{{ c.name }}</span>
+
+          <label>Descrição da Turma</label>
+          <span>
+            {% if c.description %}
+              <span class="card-title">{{ c.description }}</span>
+            {% else %}
+              <br>
+            {%  endif %}
+          </span>
+
+          <label>Criador</label>
+          <span class="card-title">{{ c.creator.name }}</span>
+        </div>
+      </div>
+      {% if tasks %}
+        {% for task in tasks %}
+        <div class="card">
+          <div class="card-content">
+            <div class="row">
+              <div class="col s12 m6 l6">
+                <span class="card-title"><b>{{ task.title }}</b></span>
+              </div>
+              <div class="col s12 m6 l6">
+                <span class="card-title deadlines">{{ task.deadline }}</span>
+              </div>
+            </div>
+
+            {% if task.description %}
+              <div class="row">
+                <p>{{ task.description }}</p>
+              </div>
+            {% endif %}
+
+            <div class="row">
+              <div class="col s12 m12 l12">
+                <label>Teste em anexo</label>
+              </div>
+              <div class="col s12 m12 l12">
+                <p><a href="/quiz/tasks/{{ task._id }}/tests/{{ task.test._id }}/answers/">{{ task.test.name }}</a></p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <!-- avisos -->
+    <div class="container" id="warnings">
+      {% if warnings %}
+        {% for warning in warnings %}
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">{{ warning.title }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <!-- participantes -->
+    <div class="container" id="participants">
+      {% if participants %}
+        {% for participant in participants %}
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">{{ participant.name }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </body>
+</html>

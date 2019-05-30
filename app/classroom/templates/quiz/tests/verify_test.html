@@ -1,0 +1,226 @@
+<!doctype html>
+
+<html lang="pt-br">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Quiz</title>
+
+        {% include 'css.html' %}
+        
+        <script src="{{ url_for('static', filename='js/verify.js') }}"></script>
+    </head>
+    <body>
+
+      <!-- menu de navegação -->
+      <nav class="nav-extended blue">
+        <div class="nav-wrapper">
+          <a href="/classroom/quiz/" class="brand-logo center">Quiz</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/classroom/">Classroom</a></li>
+            <li><a href="/classroom/users/">Configurações</a></li>
+            <li><a href="/classroom/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
+          </ul>
+
+          <ul id="slide-out" class="side-nav">
+            <li><a href="/classroom/">Classroom</a></li>
+            <li><a href="/classroom/users/">Configurações</a></li>
+            <li><a href="/classroom/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
+          </ul>
+          <a data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
+
+        </div>
+
+        <div class="nav-content">
+          <ul class="tabs tabs-transparent">
+            <li class="tab"><a class="active" href="#inicio">Início</a></li>
+            <li class="tab"><a href="#answers">Respostas</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container">
+        <div id="inicio">
+          <!-- informações sobre o questionário -->
+          <div class="card">
+              <div class="card-content">
+                <input type="hidden" id="test-id" value="{{ test._id }}">
+                <label>Nome do Teste</label><br>
+                <span class="card-title" id="name">{{ test.name }}</span><br>
+                <label>Descrição da Turma</label><br>
+                <span class="card-title">{{ test.description }}</span><br>
+                <label>Criador</label><br>
+                <span class="card-title">{{ test.creator.name }}</span>
+
+              </div>
+          </div>
+
+          <!-- lista de questões -->
+          {% if questions %}
+            {% for question in questions %}
+              <div class="card">
+                <div class="card-content">
+                  <span class="card-title">{{ question.title }}</span>
+                  {% if question.type == "multipleChoice" %}
+                    <ol>
+                      {% for choice in question.choices %}
+                        <li>{{ choice }}</li>
+                      {% endfor %}
+                    </ol>
+                  {% endif %}
+                </div>
+                <div class="card-action">
+                  <!-- ID da questão -->
+                  <input class="question-id" type="hidden" value="{{ question._id }}">
+
+                  <!-- botão para remover questão -->
+                  <!--<a href="" class="btn-remove-question-of-test2 btn red waves-effect waves-light white-text">
+                    <i class="material-icons">remove</i>
+                  </a>-->
+
+                  <!-- botão para editar questão -->
+                  <a href="#modal-edit-question" class="btn-call-modal-edit-question modal-trigger btn blue waves-effect waves-light white-text">
+                    <i class="material-icons">edit</i>
+                  </a>
+                </div>
+              </div>
+            {%  endfor %}
+          {% endif %}
+        </div>
+
+        <div id="answers">
+          <!-- respostas dos usuários do teste -->
+            {% if answers %}
+              {% for answer in answers %}
+                <div class="card">
+                  <div class="card-content">
+                    <div class="row">
+                      <div class="col s12 m6 l6">
+                        <label>Nome</label>
+                        <h5>{{ answer.user.name }}</h5>
+                      </div>
+                      <div class="col s12 m6 l6">
+                          <label>Nota</label>
+                          <h5>{{ answer.grade }}</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-action">
+                      <a href="/classroom/quiz/answers/{{ answer._id}}" class="waves-effect waves-light btn blue white-text">Ver</i></a>
+                  </div>
+                </div>
+
+              {% endfor %}
+            {% endif %}
+
+      </div> <!-- #answers -->
+
+      <div class="fixed-action-btn vertical click-to-toggle">
+       <a class="btn-floating btn-large blue">
+         <i class="material-icons">menu</i>
+       </a>
+       <ul>
+         <li>
+           <a href="/classroom/quiz/tests/{{ test._id }}/">Editar Teste</a>
+         </li>
+
+         <li>
+           <a href="#" id="btn-remove-test">Apagar Teste</a>
+         </li>
+
+       </ul>
+     </div>
+
+      </div>
+
+      <!-- modal de edição de questão -->
+      <div id="modal-edit-question" class="modal">
+        <div class="modal-content">
+          <div class="row">
+            <span class="card-title">Editando questão</span>
+          </div>
+
+          <div class="row">
+            <label>Título</label>
+            <input id="modal-question-title" type="text">
+          </div>
+
+          <div class="row">
+            <label>Esta questão é privada?</label>
+            <div class="switch">
+              <label>
+              Não
+                <input id="nq-private" type="checkbox">
+                <span class="lever"></span>
+              Sim
+              </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="row">
+              <div class="col s12 m12 l12">
+                <a id="btn-add-option" class="btn">Nova Opção<i class="material-icons right">add</i></a>
+              </div>
+            </div>
+            <ol id="options"></ol>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <!-- ID da questão editada -->
+          <input id="modal-question-id" type="hidden">
+
+          <a id="btn-save-question" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
+          <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+      </div>
+
+      <!-- modal de edição -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Editar Quiz</h4>
+          <input type="text" id="modal-test-name" placeholder="Nome do Quiz">
+          <input type="text" id="modal-test-description" placeholder="Descrição do Quiz">
+        </div>
+        <div class="modal-footer">
+          <a id="btnEditAndSave" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
+          <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+      </div>
+
+      <!-- modal de compartilhamento de testes -->
+      <div id="new-task-modal" class="modal">
+        <div class="modal-content">
+          <div class="row">
+            <h4>Criando nova tarefa</h4>
+          </div>
+
+          <div class="row">
+            <label>Título</label>
+            <input type="text" id="task-title">
+          </div>
+
+          <div class="row">
+            <label>Descrição</label>
+            <textarea id="task-description" class="materialize-textarea"></textarea>
+          </div>
+
+          <div class="row">
+            <label>Turma</label>
+            <select id="class"></select>
+          </div>
+
+          <div class="row">
+            <label>Prazo</label>
+            <input id="deadline" type="date">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a id="btnShare" class="modal-action modal-close waves-effect waves-light btn-flat">Compartilhar</a>
+          <a class="modal-action modal-close waves-effect waves-light btn-flat">Cancelar</a>
+        </div>
+      </div>
+    </body>
+</html>

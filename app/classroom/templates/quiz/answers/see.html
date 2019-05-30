@@ -1,0 +1,76 @@
+<!doctype html>
+
+<html lang="pt-br">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Quiz</title>
+
+        {% include 'css.html' %}
+        
+        <script src="{{ url_for('static', filename='js/see.js') }}"></script>
+    </head>
+    <body>
+
+      <!-- menu de navegação -->
+      {% include 'quiz/navbar.html' %}
+
+      <div class="container">
+        <!-- informações sobre o questionário -->
+        <div class="card">
+            <div class="card-content">
+              <input type="hidden" id="answer-id" value="{{ answer._id }}">
+              <input type="hidden" id="test-id" value="{{ answer.test._id }}">
+                <label>Nome</label>
+                <span class="card-title">{{ answer.test.name }}</h5>
+                <label>Descrição</label>
+                <h5>{{ answer.test.description }}</h5>
+            </div>
+        </div>
+
+        <!-- informações sobre o estudante -->
+        <div class="card">
+            <div class="card-content">
+              <span class="card-title">Estudante</span>
+              <h5>{{ answer.user.name }}</h5>
+            </div>
+        </div>
+
+        <!-- questionário -->
+        <div class="card">
+            <div class="card-content">
+                <ol id="test">
+                  {% if answer.answers %}
+                    {% for question in answer.answers %}
+                      <li>{{ question.title }}</li>
+                      <div class="row">
+                        <label>Resposta Correta</label>
+                      </div>
+                      <div class="row">
+                        <div class="chip">
+                          {{ question.correctAnswer }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label>Resposta</label>
+                      </div>
+                      <div class="row">
+                        <p class="answer">{{ question.answer }}</p>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </ol>
+            </div>
+            <div class="card-action">
+                <div class="row">
+                  <label>Nota</label>
+                  <input id="grade" type="number" min="0" max="10" value="{{ answer.grade}}">
+                  <a id="btnUpdateGrade" class="btn col s12 m12 l12 waves-effect waves-light blue white-text">Atualizar Nota</a>
+                </div>
+            </div>
+        </div>
+
+      </div>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html lang="pt-br">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+      <title>Quiz | Sem permissão</title>
+
+      {% include 'css.html' %}
+      
+    </head>
+    <body>
+
+      <!-- menu de navegação -->
+      {% include 'quiz/navbar.html' %}
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m12 s12">
+            <div class="card blue lighten-1">
+              <div class="card-content white-text">
+                <span class="card-title">Desculpe, você não tem permissão para acessar esse questionario!</span>
+                <p>Verifique se o ID do questionário está correto e tente novamente.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>

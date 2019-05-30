@@ -1,0 +1,82 @@
+<!doctype html>
+
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Classroom | Cadastro</title>
+
+    {% include 'css.html' %}
+    
+    <script src="{{ url_for('static', filename='js/signup.js')}}"></script>
+  </head>
+  <body>
+    <!-- menu de navegação -->
+    <!-- menu de navegação -->
+    <nav class="red">
+      <div class="nav-wrapper">
+        <a href="/classroom/" class="brand-logo center">Classroom</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/classroom/quiz/">Quiz</a></li>
+          <li><a href="/classroom/login/">Entrar</a></li>
+          <li><a href="/classroom/signup/">Inscrever-se</a></li>
+        </ul>
+
+        <ul id="slide-out" class="side-nav">
+          <li><a href="/classroom/quiz/">Quiz</a></li>
+          <li><a href="/classroom/login/">Entrar</a></li>
+          <li><a href="/classroom/signup/">Inscrever-se</a></li>
+        </ul>
+        <a data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
+
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <h5>Cadastro</h5>
+      </div>
+      <form action="/classroom/signup/" method="POST">
+        <div class="row">
+          <label>Nome</label>
+          <input type="text" name="name" required>
+        </div>
+
+        <div class="row">
+          <label>Email</label>
+          <input type="email" name="email" required>
+        </div>
+
+        {% if error %}
+          <div class="row">
+            <span style="color: red; font-weight: bold;">{{error}}</span>
+          </div>
+        {% endif %}
+
+        <div class="row">
+          <label>Senha</label>
+          <input id="newPassword" type="password" name="password" required>
+        </div>
+
+        <div class="row">
+          <label for="newPassword2">Confirmar senha</label>
+          <input type="password" id="newPassword2">
+        </div>
+
+        <div class="row">
+          <span id="password-error" style="display: none"></span>
+        </div>
+
+        <div class="row">
+          <div class="col s12 m6 l6">
+            <button id="btnRegister" type="submit" class="btn col s12 waves-effect waves-light red">Cadastrar-se</button>
+          </div>
+          <div class="col s12 m6 l6">
+            <a href="/classroom/" class="btn col s12 waves-effect waves-light red">Cancelar</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

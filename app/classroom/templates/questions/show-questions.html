@@ -1,0 +1,26 @@
+<!-- Só mostrar as questões existentes se estiver em "/classroom/questions" -->
+<div class="container">
+  <div class="row" id="cards-container">
+
+      <!-- Lista de questões -->
+      {% for question in questions %}
+
+      <div class="col s12 m4">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">{{ question.title }}</span>
+            <p>
+              <b>Disciplina:</b> {{ question.topic.course.name }}<br>
+              <b>Tópico:</b> {{ question.topic.name }}
+            </p>
+          </div>
+          <div class="card-action">
+            <a href="/classroom/questions/{{ question._id }}">Reponder</a>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+  </div>
+</div>

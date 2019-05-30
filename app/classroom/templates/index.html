@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+        <title>Classroom</title>
+
+        {% include 'css.html' %}
+        
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+    </head>
+    <body>
+
+      <!-- Menu de navegação -->
+
+      <!-- HTML que deve ser mostrado em "/classroom/" -->
+      {% if classes %}
+        {% include 'classes/navbar.html' %}
+
+        {% include 'classes/show-classes.html' %}
+        {% include 'classes/modals.html' %}
+
+        {% include 'classes/floating-button.html' %}
+      {% endif %}
+      <!-- ============================================= -->
+
+      <!-- HTML que deve ser mostrado em "/classroom/quiz/" -->
+      {% if quizzes %}
+        {% include 'quiz/navbar.html' %}
+
+        {% include 'quiz/show-quizzes.html' %}
+        {% include 'quiz/floating-button.html' %}
+      {% endif %}
+      <!-- ============================================= -->
+
+      <!-- HTML que deve ser mostrado em "/classroom/questions/" -->
+      {% if questions %}
+        {% include 'questions/navbar.html' %}
+
+        {% include 'questions/show-questions.html' %}
+      {% endif %}
+      <!-- ============================================= -->
+
+
+    </body>
+</html>

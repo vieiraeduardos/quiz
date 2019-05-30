@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Classroom</title>
+
+  {% include 'css.html' %}
+
+  <script src="{{ url_for('static', filename='js/users.js')}}"></script>
+
+</head>
+<body>
+  <!-- menu de navegação -->
+  <nav class="red">
+    <div class="nav-wrapper">
+      <a href="/classroom/" class="brand-logo center">Classroom</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/classroom/quiz/">Quiz</a></li>
+        <li><a href="/classroom/users/">Configurações</a></li>
+        <li><a href="/classroom/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
+      </ul>
+
+      <ul id="slide-out" class="side-nav">
+        <li><a href="/classroom/quiz/">Quiz</a></li>
+        <li><a href="/classroom/users/">Configurações</a></li>
+        <li><a href="/classroom/logout/">Sair<i class="material-icons right">exit_to_app</i></a></li>
+      </ul>
+      <a data-activates="slide-out" class="button-collapse hide-on-large-only"><i class="material-icons">menu</i></a>
+
+    </div>
+  </nav>
+
+  <!-- painel -->
+  <div class="container">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Informações de Conta</span>
+
+        <input type="hidden" id="userId" value="{{ user._id }}">
+
+        <label for="name">Nome</label>
+        <input type="text" id="name" value="{{ user.name }}">
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" value="{{ user.email }}">
+
+        <span id="email-error" style="display: none">Error</span>
+      </div>
+      <div class="card-action">
+        <a id="btnEditPI">Editar</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Alterar senha</span>
+        <span id="password-error" style="display: none"></span>
+
+        <label for="currentPassword">Senha atual</label>
+        <input type="text" id="currentPassword">
+
+        <label for="newPassword">Nova senha</label>
+        <input type="text" id="newPassword">
+
+        <label for="newPassword2">Confirmar senha</label>
+        <input type="text" id="newPassword2">
+      </div>
+      <div class="card-action">
+        <a id="btnUpdatePassword" class="btn col s12 waves-effect waves-light red">Alterar</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

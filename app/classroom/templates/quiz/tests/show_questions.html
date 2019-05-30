@@ -1,0 +1,48 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Stage Selection</title>
+
+  <!-- Import Materialize.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+
+  <div class="container grey">
+    <div class="row" id="cards-container">
+
+      <!-- Each stage card takes 3 columns wide -->
+      <div class="col s3">
+
+        <div class="card">
+          <div class="card-image">
+            <img src="http://materializecss.com/images/sample-1.jpg" alt="A lake and tree around some mountains.">
+            <span class="card-title">Homework </span>
+            <a onclick="insertCard('titulo','conteudo')" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+          </div>
+
+          <div class="card-content">
+            <p class="truncate">Here comes some brief description from the homework/activity or task that a student should do.</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</body>
+<footer>
+  <script type="text/javascript" src="show-stages.vanilla.js"></script>
+</footer>
+</html>

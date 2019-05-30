@@ -1,0 +1,34 @@
+<!-- Só mostrar as classes existentes se estiver em "/classroom/" -->
+<div id="new-class-modal" class="modal">
+  <div class="modal-content">
+    <h4>Criando nova turma</h4>
+    <label>Nome</label>
+    <input type="text" id="name">
+
+    <label>Descrição</label>
+    <textarea id="description" class="materialize-textarea"></textarea>
+  </div>
+  <div class="modal-footer">
+    <a id="btn-create-class" class="modal-action modal-close waves-effect waves-green btn-flat">Criar</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+  </div>
+</div>
+<!-- ========================= -->
+
+<!-- Modal para inscrição em turma pelo ID (Opção válida apenas em "/classroom/"). -->
+<div id="modal-signup-in-class" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <h4>Inscrevendo-se em nova turma</h4>
+    </div>
+    <div class="row">
+      <label>ID da Turma</label>
+      <input type="text" id="modal-class-id">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a id="btn-signup-in-class" class="btn-flat waves-green waves-effect modal-action modal-close">Inscrever-se</a>
+    <a class="btn-flat waves-green waves-effect modal-action modal-close">Cancelar</a>
+  </div>
+</div>
+<!-- ========================= -->

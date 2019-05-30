@@ -1,0 +1,28 @@
+<!-- Só mostrar as classes existentes se estiver em "/classroom/" -->
+<div class="container">
+  <div class="row">
+
+      <!-- Lista de turmas -->
+      {% for class in classes %}
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><a href="/classroom/classes/{{ class._id }}/">{{ class.name }}</a></span>
+          <p>{{ class.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- lista de turmas -->
+      {% if my_classes %}
+        {% for class in my_classes %}
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title"><a href="/classroom/user/{{ user }}/classes/{{ class._id }}/">{{ class.name }}</a></span>
+              <p>{{ class.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+  </div>
+</div>

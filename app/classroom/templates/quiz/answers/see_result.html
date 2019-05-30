@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html lang="pt-br">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Quiz</title>
+
+        {% include 'css.html' %}
+        
+        <script src="{{ url_for('static', filename='js/see.js') }}"></script>
+
+    </head>
+    <body>
+
+      <!-- menu de navegação -->
+      {% include 'quiz/navbar.html' %}
+
+      <div class="container">
+        <div class="row">
+          <!-- informações sobre o questionário -->
+          <div class="card">
+              <div class="card-content">
+                  <input type="hidden" id="answer-id" value="{{ answer._id }}">
+                  <label>Nome</label>
+                  <span class="card-title">{{ answer.test.name }}</span>
+                  <label>Descrição</label>
+                  <h5>{{ answer.test.description }}</h5>
+              </div>
+          </div>
+
+          <div class="card">
+            <div class="card-content">
+              <div class="row">
+                <span class="card-title">Resultado do Teste</span>
+              </div>
+              <div class="row">
+                <label>Nota</label>
+                <p>{{ answer.grade}}</p>
+              </div>
+            </div>
+
+            <div class="card-action">
+              <a href="/classroom/quiz/classes/{{ task.class._id }}/tests/{{ task.test._id }}">Responder</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>

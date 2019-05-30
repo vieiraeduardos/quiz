@@ -1,0 +1,21 @@
+<!-- lista de testes criados -->
+{% if quizzes %}
+<div class="container">
+
+    {% for quiz in quizzes %}
+
+      <!-- Antigo modo de mostrar quiz  -->
+      <div class="card">
+       <div class="card-content">
+         <input type="hidden" value="{{ quiz._id }}">
+
+         <div class="row">
+           <span class="card-title"><a href="/classroom/quiz/tests/{{ quiz._id }}/answers/">{{ quiz.name }}</a></span>
+           <p>{{ quiz.description }}</p>
+         </div>
+       </div>
+      </div>
+    {% endfor %}
+
+  </div>
+  {% endif %}
