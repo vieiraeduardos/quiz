@@ -8,13 +8,13 @@
     <title>Classroom | Entrar</title>
 
     {% include 'css.html' %}
-    
+
     <script src="{{ url_for('static', filename='js/login.js')}}"></script>
 
   </head>
   <body>
     <!-- menu de navegação -->
-    <nav class="red">
+    <nav class="#c62828 red darken-3">
       <div class="nav-wrapper">
         <a href="/classroom/" class="brand-logo center">Classroom</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -36,19 +36,20 @@
     <div class="container">
       <div class="row">
         <div class="col s12 m12 l12">
+
           <div class="row">
             <h5>Entrar</h5>
           </div>
           <form action="/classroom/login/" method="POST">
             {% if error %}
               <div class="row">
-                <span class="error">{{ error }}<span>
+                <span class="error" style="font-weight: bold; color: red;">{{ error }}<span>
               </div>
             {% endif %}
 
             <div class="row">
               <label>Email</label>
-              <input type="email" name="email">
+              <input type="email" name="email" placeholder="janedoe@example.com">
             </div>
 
             <div class="row">
@@ -58,10 +59,10 @@
 
             <div class="row">
               <div class="col s12 m6 l6">
-                <button type="submit" class="btn col s12 waves-effect waves-light red">Entrar</button>
+                <button type="submit" class="btn col s12 waves-effect waves-light green">Entrar</button>
               </div>
               <div class="col s12 m6 l6">
-                <a href="/classroom/signup/" class="btn col s12 waves-effect waves-light red">Cadastrar-se</a>
+                <a href="/classroom/signup/" class="btn col s12 waves-effect waves-light grey">Cadastrar-se</a>
               </div>
             </div>
           </form>

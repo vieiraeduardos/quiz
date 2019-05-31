@@ -8,13 +8,13 @@
     <title>Classroom | Cadastro</title>
 
     {% include 'css.html' %}
-    
+
     <script src="{{ url_for('static', filename='js/signup.js')}}"></script>
   </head>
   <body>
     <!-- menu de navegação -->
     <!-- menu de navegação -->
-    <nav class="red">
+    <nav class="#c62828 red darken-3">
       <div class="nav-wrapper">
         <a href="/classroom/" class="brand-logo center">Classroom</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -39,13 +39,13 @@
       </div>
       <form action="/classroom/signup/" method="POST">
         <div class="row">
-          <label>Nome</label>
-          <input type="text" name="name" required>
+          <label>Nome Completo</label>
+          <input type="text" name="name" placeholder="Jane Doe" required>
         </div>
 
         <div class="row">
           <label>Email</label>
-          <input type="email" name="email" required>
+          <input type="email" name="email" placeholder="janedoe@example.com" required>
         </div>
 
         {% if error %}
@@ -70,10 +70,10 @@
 
         <div class="row">
           <div class="col s12 m6 l6">
-            <button id="btnRegister" type="submit" class="btn col s12 waves-effect waves-light red">Cadastrar-se</button>
+            <button id="btnRegister" type="submit" class="btn col s12 waves-effect waves-light green">Cadastrar-se</button>
           </div>
           <div class="col s12 m6 l6">
-            <a href="/classroom/" class="btn col s12 waves-effect waves-light red">Cancelar</a>
+            <a href="/classroom/" class="btn col s12 waves-effect waves-light grey">Cancelar</a>
           </div>
         </div>
       </form>

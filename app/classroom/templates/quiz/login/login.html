@@ -8,14 +8,14 @@
     <title>Quiz | Entrar</title>
 
     {% include 'css.html' %}
-    
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 
     <script src="{{ url_for('static', filename='js/login.js')}}"></script>
   </head>
   <body>
     <!-- menu de navegação -->
-    <nav class="blue">
+    <nav class="#1565c0 blue darken-3">
       <div class="nav-wrapper">
         <a href="/classroom/quiz/" class="brand-logo center">Quiz</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -41,13 +41,13 @@
       <form action="/quiz/login/" method="POST">
         {% if error %}
           <div class="row">
-            <span class="error">{{ error }}<span>
+            <span class="error" style="font-weight: bold; color: red;">{{ error }}<span>
           </div>
         {% endif %}
 
         <div class="row">
           <label>Email</label>
-          <input type="email" name="email">
+          <input type="email" name="email" placeholder="janedoe@example.com">
         </div>
 
         <div class="row">
@@ -57,10 +57,10 @@
 
         <div class="row">
           <div class="col s12 m6 l6">
-            <button type="submit" class="btn col s12 waves-effect waves-light blue">Entrar</button>
+            <button type="submit" class="btn col s12 waves-effect waves-light green">Entrar</button>
           </div>
           <div class="col s12 m6 l6">
-            <a href="/classroom/quiz/signup/" class="btn col s12 waves-effect waves-light blue">Cadastrar-se</a>
+            <a href="/classroom/quiz/signup/" class="btn col s12 waves-effect waves-light grey">Cadastrar-se</a>
           </div>
         </div>
       </form>
