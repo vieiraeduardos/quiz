@@ -198,7 +198,7 @@ def add_participant(class_id):
                    sender='lawsclassroom@gmail.com',
                    recipients=
                    [email])
-        msg.html = "Você foi convidado para participar de {0} no Classroom!<br><a href='http://200.137.131.118/classroom/invites/{1}/entry/'>Aceitar</a>".format(classe["name"], invite_id)
+        msg.html = "Você foi convidado para participar de {0} no Classroom!<br><a href='http://vieiraeduardos.xyz/classroom/invites/{1}/entry/'>Aceitar</a>".format(classe["name"], invite_id)
         mail.send(msg)
         return "Sent"
     except Exception as e:
