@@ -1,0 +1,42 @@
+
+scalar DateTime
+
+type Course {
+    code: ID!,
+    name: String!
+}
+
+type Abstract {
+    code: ID!,
+    name: String!,
+    course: ID!
+}
+
+type Topic {
+    code: ID!,
+    name: String!,
+    abstract: ID!,
+    abstract: Abstract!
+}
+
+type Option {
+    code: ID!,
+    title: String,
+    isAnswer: Boolean,
+    question: Question!
+}
+
+type Question {
+    code: ID!,
+    title: String!,
+    options: [Option!]!,
+    answer: Option!,
+    topic: Topic!
+}
+
+type Test {
+    code: ID!,
+    questions: [Question!]!,
+    time: DateTime,
+    accuracy: Float
+}
