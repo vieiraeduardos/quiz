@@ -57,23 +57,18 @@ def create_test(course, topic):
 
     i = 0
     while(i < 3):
-        amount = math.floor(level[i]["percentage"] * (number/100))
-        if amount != 0:
-            limite = db.questions.find(
-                     {
-                        "topic._id" : ObjectId(topic),
-                        "level" : level[i]["name"],
-                        "type": type
-                     }).count()
+        amount = int((level[i]["percentage"] / 100) * number)
 
-            num_random = randint(0, limite)
+        print(amount)
+
+        if amount != 0:
 
             result = db.questions.find({
                 "topic._id" : ObjectId(topic),
                 "level" : level[i]["name"],
                 "type": type,
                 "private": "false"
-            }).limit(amount).skip(num_random)
+            }).limit(amount)
 
             for item in result:
                 if item["_id"]:
